@@ -1,24 +1,27 @@
 const userModel = require("../Models/usersModel")
-const bycrypt=require('bcryptjs')
+const bycrypt = require('bcryptjs')
+const moment = require('moment-timezone');
 
 async function registerPost(req, res) {
     try {
-        const {name,email,password}=req.body
-        const saltRounds=10
-        const hashedpassword=await bycrypt.hash(password,saltRounds)
+        const { name, email, password } = req.body
+        const saltRounds = 10
+        const hashedpassword = await bycrypt.hash(password, saltRounds)
         const newData = new userModel({
-            name:name,
-            email:email,
-            password:hashedpassword
+            name: name,
+            email: email,
+            password: hashedpassword,
+            createdAt: moment(userModel.createdAt).tz("Asia/Kolkata").format(),
+            updatedAt: moment(userModel.updatedAt).tz("Asia/Kolkata").format()
         })
-        const saved =await newData.save()
-        res.json({success:true,data:saved})
+        const saved = await newData.save()
+        res.json({ success: true, data: saved })
     } catch (error) {
-        console.log("the eror is"+error)
-        if(error.code===11000){
+        console.log("the eror is" + error)
+        if (error.code === 11000) {
             res.status(400).json({
-                success:false,
-                message:"Email already exists, please use another email"
+                success: false,
+                message: "Email already exists, please use another email"
             })
         } else {
             res.status(500).json({

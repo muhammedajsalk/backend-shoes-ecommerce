@@ -25,11 +25,15 @@ const userSchema = new mongoose.Schema({
     isActive: {
         type: Boolean,
         default: true
+    },
+    createdAt:{
+        type:String
+    },
+    updatedAt:{
+        type:String
     }
+
 },
-    {
-        timestamps: true
-    }
 )
 
 const userModel=mongoose.model("user",userSchema)
