@@ -1,8 +1,16 @@
 const userModel = require("../Models/usersModel")
+const bycrypt=require('bcryptjs')
 
 async function registerPost(req, res) {
     try {
-        const newData = new userModel(req.body)
+        const {name,email,password}=req.body
+        const saltRounds=10
+        const hashedpassword=await bycrypt.hash(password,saltRounds)
+        const newData = new userModel({
+            name:name,
+            email:email,
+            password:hashedpassword
+        })
         const saved =await newData.save()
         res.json({success:true,data:saved})
     } catch (error) {
