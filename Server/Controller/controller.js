@@ -1,6 +1,10 @@
 const userModel = require("../Models/usersModel")
 const bycrypt = require('bcryptjs')
 const moment = require('moment-timezone');
+const jwt=require('jsonwebtoken')
+require('dotenv').config()
+
+const jwt_secret_code=process.env.JWT_SECRETCODE
 
 async function registerPost(req, res) {
     try {
@@ -37,10 +41,11 @@ async function loginPost(req, res) {
     try {
         const getUser = await userModel.findOne({ email: req.body.email })
         if (getUser == null) return res.status(400).json({success:false, message: "You entered incorrect details" })
-        const { password } = getUser
+        const { password,_id } = getUser
         const match =await bycrypt.compare(req.body.password, password)
         if(!match) return res.status(400).json({success:false, message: "Your password is incorrect" })
-        res.status(200).json({success:true, message: "Login successful" })
+        const accesTokken=await jwt.sign({id:_id},jwt_secret_code,{expiresIn:'7d'})
+        res.status(200).json({success:true, message: "Login successful",token:accesTokken })
     } catch (error) {
         res.status(500).json({success:false,message:"internal server error"})
     }
