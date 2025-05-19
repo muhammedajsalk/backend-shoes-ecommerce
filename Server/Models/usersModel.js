@@ -29,6 +29,13 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
+    resetToken:{
+        type:String,
+        default:""
+    },
+    resetTokenExpery:{
+        type:Date
+    },
     wishlist: {
         type: Array
     },

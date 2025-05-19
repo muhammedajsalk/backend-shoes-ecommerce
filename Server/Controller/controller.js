@@ -51,4 +51,20 @@ async function loginPost(req, res) {
     }
 }
 
-module.exports = { registerPost, loginPost }
+async function resetPassword(req,res){
+    try {
+        const user=await userModel.findOne({email:req.body.email})
+        if(user==null) return res.status(400).json({success:false,message:"the details is incorrect"})
+        const saltRounds=10
+        const hashedpassword=await bycrypt.hash(req.body.password,saltRounds)
+        const match=await bycrypt.compare(req.body.password,user.password)
+        if(match) return res.status(400).json({success:false,message:"the password is same"})
+        user.password=hashedpassword
+        await user.save()
+        res.status(200).json({success:true,message:"succefully reseted"})
+    } catch (error) {
+        res.status(500).json({success:false,message:"internal server error"})
+    }
+}
+
+module.exports = { registerPost, loginPost ,resetPassword}
