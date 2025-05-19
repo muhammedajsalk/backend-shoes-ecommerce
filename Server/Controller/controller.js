@@ -11,6 +11,7 @@ async function registerPost(req, res) {
             name: name,
             email: email,
             password: hashedpassword,
+            profileImg: "",
             createdAt: moment(userModel.createdAt).tz("Asia/Kolkata").format(),
             updatedAt: moment(userModel.updatedAt).tz("Asia/Kolkata").format()
         })
@@ -32,4 +33,17 @@ async function registerPost(req, res) {
     }
 }
 
-module.exports = { registerPost}
+async function loginPost(req, res) {
+    try {
+        const getUser = await userModel.findOne({ email: req.body.email })
+        if (getUser == null) return res.status(400).json({success:false, message: "You entered incorrect details" })
+        const { password } = getUser
+        const match =await bycrypt.compare(req.body.password, password)
+        if(!match) return res.status(400).json({success:false, message: "Your password is incorrect" })
+        res.status(200).json({success:true, message: "Login successful" })
+    } catch (error) {
+        res.status(500).json({success:false,message:"internal server error"})
+    }
+}
+
+module.exports = { registerPost, loginPost }
