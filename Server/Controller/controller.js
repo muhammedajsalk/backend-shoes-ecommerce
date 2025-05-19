@@ -1,10 +1,11 @@
 const userModel = require("../Models/usersModel")
+const productModel = require("../Models/productsModel")
 const bycrypt = require('bcryptjs')
 const moment = require('moment-timezone');
-const jwt=require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 require('dotenv').config()
 
-const jwt_secret_code=process.env.JWT_SECRETCODE
+const jwt_secret_code = process.env.JWT_SECRETCODE
 
 async function registerPost(req, res) {
     try {
@@ -20,7 +21,8 @@ async function registerPost(req, res) {
             updatedAt: moment(userModel.updatedAt).tz("Asia/Kolkata").format()
         })
         const saved = await newData.save()
-        res.json({ success: true, data: saved })
+        const accesTokken = await jwt.sign({ id: newData._id }, jwt_secret_code, { expiresIn: '7d' })
+        res.json({ success: true, data: saved, token: accesTokken })
     } catch (error) {
         console.log("the eror is" + error)
         if (error.code === 11000) {
@@ -40,31 +42,57 @@ async function registerPost(req, res) {
 async function loginPost(req, res) {
     try {
         const getUser = await userModel.findOne({ email: req.body.email })
-        if (getUser == null) return res.status(400).json({success:false, message: "You entered incorrect details" })
-        const { password,_id } = getUser
-        const match =await bycrypt.compare(req.body.password, password)
-        if(!match) return res.status(400).json({success:false, message: "Your password is incorrect" })
-        const accesTokken=await jwt.sign({id:_id},jwt_secret_code,{expiresIn:'7d'})
-        res.status(200).json({success:true, message: "Login successful",token:accesTokken })
+        if (getUser == null) return res.status(400).json({ success: false, message: "You entered incorrect details" })
+        const { password, _id } = getUser
+        const match = await bycrypt.compare(req.body.password, password)
+        if (!match) return res.status(400).json({ success: false, message: "Your password is incorrect" })
+        const accesTokken = await jwt.sign({ id: _id }, jwt_secret_code, { expiresIn: '7d' })
+        res.status(200).json({ success: true, message: "Login successful", token: accesTokken })
     } catch (error) {
-        res.status(500).json({success:false,message:"internal server error"})
+        res.status(500).json({ success: false, message: "internal server error" })
     }
 }
 
-async function resetPassword(req,res){
+async function resetPassword(req, res) {
     try {
-        const user=await userModel.findOne({email:req.body.email})
-        if(user==null) return res.status(400).json({success:false,message:"the details is incorrect"})
-        const saltRounds=10
-        const hashedpassword=await bycrypt.hash(req.body.password,saltRounds)
-        const match=await bycrypt.compare(req.body.password,user.password)
-        if(match) return res.status(400).json({success:false,message:"the password is same"})
-        user.password=hashedpassword
+        const user = await userModel.findOne({ email: req.body.email })
+        if (user == null) return res.status(400).json({ success: false, message: "the details is incorrect" })
+        const saltRounds = 10
+        const hashedpassword = await bycrypt.hash(req.body.password, saltRounds)
+        const match = await bycrypt.compare(req.body.password, user.password)
+        if (match) return res.status(400).json({ success: false, message: "the password is same" })
+        user.password = hashedpassword
         await user.save()
-        res.status(200).json({success:true,message:"succefully reseted"})
+        res.status(200).json({ success: true, message: "succefully reseted" })
     } catch (error) {
-        res.status(500).json({success:false,message:"internal server error"})
+        res.status(500).json({ success: false, message: "internal server error" })
     }
 }
 
-module.exports = { registerPost, loginPost ,resetPassword}
+async function getAllProducts(req, res) {
+    try {
+        const authHeader = req.headers['authorization'];
+        const token = authHeader && authHeader.split(' ')[1]
+        console.log("the authheader " + authHeader)
+        if (token == null) return res.status(401).json({ success: false, message: "no token provided" })
+        jwt.verify(token, jwt_secret_code, async (error, user) => {
+            if (error) return res.status(401).json({ success: false, message: "token is invalid or experied" })
+            try {
+                const products = await productModel.find()
+                res.status(200).json({
+                    success:true,
+                    data:products
+                })
+            } catch (error) {
+                res.status(500).json({
+                    success:false,
+                    message:"Error Fetching products"
+                })
+            }
+        })
+    } catch (error) {
+        res.status(500).json({ success: false, message: "internal server error" })
+    }
+}
+
+module.exports = { registerPost, loginPost, resetPassword, getAllProducts }
