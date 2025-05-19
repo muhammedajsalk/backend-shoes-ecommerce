@@ -32,4 +32,4 @@ async function registerPost(req, res) {
     }
 }
 
-module.exports = { registerPost }
+module.exports = { registerPost}
