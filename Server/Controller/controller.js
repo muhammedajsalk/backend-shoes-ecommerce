@@ -80,13 +80,13 @@ async function getAllProducts(req, res) {
             try {
                 const products = await productModel.find()
                 res.status(200).json({
-                    success:true,
-                    data:products
+                    success: true,
+                    data: products
                 })
             } catch (error) {
                 res.status(500).json({
-                    success:false,
-                    message:"Error Fetching products"
+                    success: false,
+                    message: "Error Fetching products"
                 })
             }
         })
@@ -95,4 +95,29 @@ async function getAllProducts(req, res) {
     }
 }
 
-module.exports = { registerPost, loginPost, resetPassword, getAllProducts }
+async function getProductsById(req, res) {
+    try {
+        const authHeader = req.headers['authorization']
+        const token = authHeader && authHeader.split(" ")[1]
+        if (!token) return res.status(400).json({ success: false, message: "no token provided" })
+        jwt.verify(token, jwt_secret_code,async (error, decode) => {
+            if (error) return res.status(400).json({ status: false, message: "token is invalid or experied" })
+            try {
+                const id = req.params.id
+                const getProduct = await productModel.findOne({ _id:id })
+                if (getProduct == null) return res.status(400).json({ success: false, message: "the product not in database" })
+                res.status(200).json({ success: true, data: getProduct })
+            } catch (error) {
+                res.status(500).json({
+                    success: false,
+                    message: "Error Fetching products"
+                })
+            }
+        })
+    } catch (error) {
+        res.status(500).json({ success: false, message: "internal server error" })
+        console.log(error)
+    }
+}
+
+module.exports = { registerPost, loginPost, resetPassword, getAllProducts, getProductsById }
