@@ -1,5 +1,6 @@
 const userModel = require("../Models/usersModel")
 const productModel = require("../Models/productsModel")
+const jwtMiddleware = require("../middlewares/jwtMiddleware")
 const bycrypt = require('bcryptjs')
 const moment = require('moment-timezone');
 const jwt = require('jsonwebtoken')
@@ -71,53 +72,31 @@ async function resetPassword(req, res) {
 
 async function getAllProducts(req, res) {
     try {
-        const authHeader = req.headers['authorization'];
-        const token = authHeader && authHeader.split(' ')[1]
-        console.log("the authheader " + authHeader)
-        if (token == null) return res.status(401).json({ success: false, message: "no token provided" })
-        jwt.verify(token, jwt_secret_code, async (error, user) => {
-            if (error) return res.status(401).json({ success: false, message: "token is invalid or experied" })
-            try {
-                const products = await productModel.find()
-                res.status(200).json({
-                    success: true,
-                    data: products
-                })
-            } catch (error) {
-                res.status(500).json({
-                    success: false,
-                    message: "Error Fetching products"
-                })
-            }
+        const products = await productModel.find()
+        res.status(200).json({
+            success: true,
+            data: products
         })
     } catch (error) {
-        res.status(500).json({ success: false, message: "internal server error" })
+        res.status(500).json({
+            success: false,
+            message: "Error Fetching products"
+        })
     }
 }
 
 async function getProductsById(req, res) {
     try {
-        const authHeader = req.headers['authorization']
-        const token = authHeader && authHeader.split(" ")[1]
-        if (!token) return res.status(400).json({ success: false, message: "no token provided" })
-        jwt.verify(token, jwt_secret_code,async (error, decode) => {
-            if (error) return res.status(400).json({ status: false, message: "token is invalid or experied" })
-            try {
-                const id = req.params.id
-                const getProduct = await productModel.findOne({ _id:id })
-                if (getProduct == null) return res.status(400).json({ success: false, message: "the product not in database" })
-                res.status(200).json({ success: true, data: getProduct })
-            } catch (error) {
-                res.status(500).json({
-                    success: false,
-                    message: "Error Fetching products"
-                })
-            }
-        })
+        const id = req.params.id
+        const getProduct = await productModel.findOne({ _id: id })
+        if (getProduct == null) return res.status(400).json({ success: false, message: "the product not in database" })
+        res.status(200).json({ success: true, data: getProduct })
     } catch (error) {
-        res.status(500).json({ success: false, message: "internal server error" })
-        console.log(error)
+        res.status(500).json({
+            success: false,
+            message: "Error Fetching products"
+        })
     }
-}
 
-module.exports = { registerPost, loginPost, resetPassword, getAllProducts, getProductsById }
+}
+module.exports = { registerPost, loginPost, resetPassword, getAllProducts, getProductsById}
