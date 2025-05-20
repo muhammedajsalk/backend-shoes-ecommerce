@@ -80,7 +80,7 @@ async function getAllProducts(req, res) {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Error Fetching products"
+            message: "error faching products"
         })
     }
 }
@@ -94,9 +94,22 @@ async function getProductsById(req, res) {
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Error Fetching products"
+            message: "error faching products"
         })
     }
-
 }
-module.exports = { registerPost, loginPost, resetPassword, getAllProducts, getProductsById}
+
+async function getProductByCategory(req, res) {
+    try {
+        const category_name = req.params.category_name
+        const getProduct = await productModel.find({ category: category_name })
+        if (getProduct == null) return res.status(400).json({ success: false, message: "the categories not in database" })
+        res.status(200).json({ success: true, data: getProduct })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "error faching products"
+        })
+    }
+}
+module.exports = { registerPost, loginPost, resetPassword, getAllProducts, getProductsById, getProductByCategory }
