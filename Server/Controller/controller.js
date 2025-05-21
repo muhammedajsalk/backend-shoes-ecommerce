@@ -24,8 +24,14 @@ async function registerPost(req, res) {
             updatedAt: moment(userModel.updatedAt).tz("Asia/Kolkata").format()
         })
         const saved = await newData.save()
-        const accesTokken = await jwt.sign({ id: newData._id }, jwt_secret_code, { expiresIn: '7d' })
-        res.json({ success: true, data: saved, token: accesTokken })
+        const accesTokken = await jwt.sign({ id: newData._id }, jwt_secret_code, { expiresIn: '1h' })
+        res.cookie("accessToken", accesTokken, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'strict',
+            maxAge: 60 * 60 * 1000
+        })
+        res.json({ success: true, message: "user is registered" })
     } catch (error) {
         console.log("the eror is" + error)
         if (error.code === 11000) {
@@ -49,8 +55,14 @@ async function loginPost(req, res) {
         const { password, _id } = getUser
         const match = await bycrypt.compare(req.body.password, password)
         if (!match) return res.status(400).json({ success: false, message: "Your password is incorrect" })
-        const accesTokken = await jwt.sign({ id: _id }, jwt_secret_code, { expiresIn: '7d' })
-        res.status(200).json({ success: true, message: "Login successful", token: accesTokken })
+        const accesTokken = await jwt.sign({ id: _id }, jwt_secret_code, { expiresIn: '1h' })
+        res.cookie("accessToken", accesTokken, {
+            httpOnly: true,
+            secure: false,
+            sameSite: 'strict',
+            maxAge: 60 * 60 * 1000
+        })
+        res.json({ success: true, message: "user is loged" })
     } catch (error) {
         res.status(500).json({ success: false, message: "internal server error" })
     }
