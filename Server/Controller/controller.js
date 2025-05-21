@@ -1,9 +1,11 @@
 const userModel = require("../Models/usersModel")
 const productModel = require("../Models/productsModel")
+const cartModel = require("../Models/CartModel")
 const jwtMiddleware = require("../middlewares/jwtMiddleware")
 const bycrypt = require('bcryptjs')
 const moment = require('moment-timezone');
 const jwt = require('jsonwebtoken')
+const { default: mongoose } = require("mongoose")
 require('dotenv').config()
 
 const jwt_secret_code = process.env.JWT_SECRETCODE
@@ -112,4 +114,61 @@ async function getProductByCategory(req, res) {
         })
     }
 }
-module.exports = { registerPost, loginPost, resetPassword, getAllProducts, getProductsById, getProductByCategory }
+
+async function addProductToCart(req, res) {
+    try {
+        const product_id = req.params.id
+        if (!mongoose.Types.ObjectId.isValid(product_id)) return res.status(400).json({ success: false, message: "the product id is invalid" })
+        const productData = await productModel.findById(product_id)
+        if (!productData) return res.status(400).json({ success: false, message: "product not found" });
+        const userId = req.user.id
+        if (!mongoose.Types.ObjectId.isValid(userId)) return res.status(400).json({ success: false, message: "the user id is invaild" })
+        const cartUser = await cartModel.findOne({ cartBy: userId })
+        if (!cartUser) {
+            const newData = new cartModel({
+                cartBy: req.user.id,
+                items: [{
+                    productId: product_id,
+                    quantity: 1
+                }],
+                createdAt: moment().tz("Asia/Kolkata").format(),
+                updatedAt: moment().tz("Asia/Kolkata").format()
+            })
+            const saved = await newData.save()
+            return res.status(201).json({ success: true, data: saved })
+        }
+
+        const existingItem = await cartModel.findOne({
+            cartBy: userId,
+            "items.productId": product_id
+        });
+        if (existingItem) {
+            const updatedCart = await cartModel.findOneAndUpdate(
+                {
+                    cartBy: userId,
+                    "items.productId": product_id
+                },
+                {
+                    $inc: { "items.$.quantity": 1 },
+                    $set: { updatedAt: moment().tz("Asia/Kolkata").format() }
+                },
+                { new: true }
+            );
+            return res.status(200).json({ success: true, data: updatedCart });
+        } else {
+            const addedCart = await cartModel.updateOne(
+                { cartBy: userId },
+                {
+                    $push: { items: { productId: product_id, quantity: 1 } },
+                    $set: { updatedAt: moment().tz("Asia/Kolkata").format() }
+                },
+
+            )
+            return res.status(200).json({ success: true, data: addedCart })
+        }
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ success: false, message: "internal server error" });
+    }
+}
+module.exports = { registerPost, loginPost, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart }
