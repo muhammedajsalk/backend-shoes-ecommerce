@@ -1,13 +1,23 @@
-const mongoose=require('mongoose')
+const mongoose = require('mongoose')
 
 
-const cartShema=new mongoose.Schema({
-    cartBy:{
-        type:String
+const cartShema = new mongoose.Schema({
+    cartBy: {
+        type: String
     },
-    items:{
-        type:Array,
-    },
+    items: [
+        {
+            productId: {
+                type: String,
+                ref: 'products',
+                required: true
+            },
+            quantity: {
+                type: Number,
+                default: 1
+            }
+        }
+    ],
     createdAt: {
         type: String
     },
@@ -16,6 +26,6 @@ const cartShema=new mongoose.Schema({
     }
 })
 
-const cartModel=mongoose.model("carts",cartShema)
+const cartModel = mongoose.model("carts", cartShema)
 
-module.exports=cartModel
+module.exports = cartModel

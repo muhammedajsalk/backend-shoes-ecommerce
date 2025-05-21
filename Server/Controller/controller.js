@@ -183,4 +183,25 @@ async function addProductToCart(req, res) {
         return res.status(500).json({ success: false, message: "internal server error" });
     }
 }
-module.exports = { registerPost, loginPost, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart }
+
+async function getAllCartProducts(req, res) {
+    try {
+        const paramsUserId = req.params.id
+        const tokenUserId = req.user
+        if (paramsUserId !== tokenUserId) return res.status(400).json({ success: false, message: "user is not authorized" })
+        const userCartData = await cartModel.findOne({ cartBy: paramsUserId }).populate('items.productId')
+        if (userCartData == null || userCartData.items.length === 0) return res.status(200).json({ success: true, data: "no product in cart" })
+        const cartproductdetails = userCartData.items.map(item => (
+            {
+                quantity: item.quantity,
+                productId:item.productId
+            }
+        ))
+        res.status(200).json({success:true,data:cartproductdetails})
+    } catch (error) {
+
+    }
+
+}
+
+module.exports = { registerPost, loginPost, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts }
