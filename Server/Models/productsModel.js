@@ -7,6 +7,9 @@ const productsSchema=new mongoose.Schema({
     brand_name:{
         type:String
     },
+    description:{
+        type:String
+    },
     category:{
         type:String
     },
@@ -16,8 +19,23 @@ const productsSchema=new mongoose.Schema({
     amount:{
         type:String
     },
-    shoe_image:{
+    count:{
         type:String
+    },
+    images:[
+        {
+            type:String
+        }
+    ],
+    isActive:{
+        type:Boolean,
+        default:true
+    },
+    createdAt: {
+        type: String
+    },
+    updatedAt: {
+        type: String
     }
 })
 

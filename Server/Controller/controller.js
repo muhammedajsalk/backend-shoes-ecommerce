@@ -25,7 +25,7 @@ async function registerPost(req, res) {
         })
         const saved = await newData.save()
         const accesTokken = await jwt.sign({ id: newData._id }, jwt_secret_code, { expiresIn: '1h' })
-        res.cookie("accessToken", accesTokken, {
+        res.cookie("accesTokken", accesTokken, {
             httpOnly: true,
             secure: true,
             sameSite: 'strict',
@@ -56,7 +56,7 @@ async function loginPost(req, res) {
         const match = await bycrypt.compare(req.body.password, password)
         if (!match) return res.status(400).json({ success: false, message: "Your password is incorrect" })
         const accesTokken = await jwt.sign({ id: _id }, jwt_secret_code, { expiresIn: '1h' })
-        res.cookie("accessToken", accesTokken, {
+        res.cookie("accesTokken", accesTokken, {
             httpOnly: true,
             secure: false,
             sameSite: 'strict',
