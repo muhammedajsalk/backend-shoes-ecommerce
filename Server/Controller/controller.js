@@ -303,4 +303,6 @@ async function getOrders(req, res) {
     }
 }
 
+
+
 module.exports = { userRegister, userLogin, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders, getOrders }
