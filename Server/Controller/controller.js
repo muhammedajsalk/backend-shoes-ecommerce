@@ -1,11 +1,11 @@
 const userModel = require("../Models/usersModel")
 const productModel = require("../Models/productsModel")
 const cartModel = require("../Models/CartModel")
-const jwtMiddleware = require("../middlewares/jwtMiddleware")
 const bycrypt = require('bcryptjs')
 const moment = require('moment-timezone');
 const jwt = require('jsonwebtoken')
 const { default: mongoose } = require("mongoose")
+const orderModel = require("../Models/ordersModel")
 require('dotenv').config()
 
 const jwt_secret_code = process.env.JWT_SECRETCODE
@@ -48,6 +48,8 @@ async function registerPost(req, res) {
     }
 }
 
+
+
 async function loginPost(req, res) {
     try {
         const getUser = await userModel.findOne({ email: req.body.email })
@@ -62,11 +64,13 @@ async function loginPost(req, res) {
             sameSite: 'strict',
             maxAge: 60 * 60 * 1000
         })
-        res.json({ success: true, message: "user is loged" })
+        res.json({ success: true, message: "user is loged",data:getUser})
     } catch (error) {
         res.status(500).json({ success: false, message: "internal server error" })
     }
 }
+
+
 
 async function resetPassword(req, res) {
     try {
@@ -84,6 +88,8 @@ async function resetPassword(req, res) {
     }
 }
 
+
+
 async function getAllProducts(req, res) {
     try {
         const products = await productModel.find()
@@ -99,6 +105,8 @@ async function getAllProducts(req, res) {
     }
 }
 
+
+
 async function getProductsById(req, res) {
     try {
         const id = req.params.id
@@ -113,6 +121,8 @@ async function getProductsById(req, res) {
     }
 }
 
+
+
 async function getProductByCategory(req, res) {
     try {
         const category_name = req.params.category_name
@@ -126,6 +136,8 @@ async function getProductByCategory(req, res) {
         })
     }
 }
+
+
 
 async function addProductToCart(req, res) {
     try {
@@ -184,6 +196,9 @@ async function addProductToCart(req, res) {
     }
 }
 
+
+
+
 async function getAllCartProducts(req, res) {
     try {
         const paramsUserId = req.params.id
@@ -194,14 +209,87 @@ async function getAllCartProducts(req, res) {
         const cartproductdetails = userCartData.items.map(item => (
             {
                 quantity: item.quantity,
-                productId:item.productId
+                productId: item.productId
             }
         ))
-        res.status(200).json({success:true,data:cartproductdetails})
+        res.status(200).json({ success: true, data: cartproductdetails })
     } catch (error) {
 
     }
 
 }
 
-module.exports = { registerPost, loginPost, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts }
+
+
+
+async function postOrders(req, res) {
+    try {
+        const tokenId = req.user.id
+        const paramId = req.params.id
+        if (tokenId !== paramId) return res.status(400).json({ success: false, message: "the user is mismatched" })
+        const productsId = req.body.productsId
+        const productId = req.body.productId
+        if (!productsId) {
+            const checkProductAvailable = await productModel.findOne({ _id: productId })
+            console.log(checkProductAvailable)
+            if (!checkProductAvailable) return res.status(400).json({ success: false, message: "the product is not our product database" })
+            if (checkProductAvailable.count < 1) return res.status(400).json({ success: false, message: "the product is out of stock" })
+            const createOrder = new orderModel({
+                orderBy: paramId,
+                items: [
+                    {
+                        productId: checkProductAvailable._id,
+                        quantity: 1,
+                        price: checkProductAvailable.amount
+                    }
+                ],
+                total: checkProductAvailable.amount * 1,
+                stutus: "conformed",
+                paymentMethod: req.body.paymentMethod,
+                createdAt: moment().tz("Asia/Kolkata").format()
+            })
+
+            const save = await createOrder.save()
+            await productModel.updateOne({ _id: checkProductAvailable._id }, { $set: { count: checkProductAvailable.count - 1 } })
+            return res.status(200).json({ success: true, message: "succefully send order", data: save })
+        }
+        if (!Array.isArray(productsId) || productsId.length === 0) return res.status(400).json({ success: false, message: "products must non empty array" })
+
+        const items = []
+        let total = 0
+
+        for (const product of productsId) {
+            const { products_id, quantity } = product
+            const productsDatas = await productModel.findById(product.products_id)
+            console.log(productsDatas)
+            console.log(productsId.length)
+            console.log(productsDatas.length)
+            if (!productsDatas) return res.status(400).json({ success: false, message: `the ${products_id} is not dataBase` })
+            if (productsDatas.count < quantity) return res.status(400).json({ success: false, message: `${productsDatas.shoe_name} only has ${productsDatas.count} in stock` });
+            items.push({
+                productId: products_id,
+                quantity: quantity,
+                price: productsDatas.amount
+            })
+            total+=productsDatas.amount*quantity
+            productsDatas.count-=quantity
+            await productsDatas.save()
+        }
+
+        const createOrder = new orderModel({
+            orderBy: paramId,
+            items: items,
+            total: total,
+            stutus: "conformed",
+            paymentMethod: req.body.paymentMethod,
+            createdAt: moment().tz("Asia/Kolkata").format()
+        })
+        const save = await createOrder.save()
+        return res.status(200).json({ success: true, data: save })
+    } catch (error) {
+        res.status(400).json({ success: false, message: "internal Server Error" })
+        console.log("internal error " + error)
+    }
+}
+
+module.exports = { registerPost, loginPost, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders }

@@ -1,483 +1,348 @@
+[
+
 {
-  "shoes": [
-    {
-      "shoe_name": "Nike React Infinity Run Flyknit 3",
-      "brand_name": "Nike",
-      "category": "women",
-      "type": "Gym Sneakers",
-      "amount": 14000,
-      "shoe_image": "https://rukminim2.flixcart.com/image/850/1000/xif0q/shoe/m/r/k/-original-imah5xtebndcez8q.jpeg?q=90&crop=false",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "cb01"
-    },
-    {
-      "shoe_name": "Nike Metcon 90",
-      "brand_name": "Nike",
-      "category": "men",
-      "type": "Gym Sneakers",
-      "amount": 12000,
-      "shoe_image": "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/2e5c5e46-3689-4967-8e84-671eb4c6ae46/M+NIKE+METCON+9+AMP.png",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "fd92"
-    },
-    {
-      "shoe_name": "Nike Free Run 5.0",
-      "brand_name": "Nike",
-      "category": "women",
-      "type": "Running Shoes",
-      "amount": 9000,
-      "shoe_image": "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/99486859-0ff3-46b4-949b-2d16af2ad421/custom-nike-dunk-high-by-you-shoes.png",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "824b"
-    },
-    {
-      "shoe_name": "Nike Air Max 270",
-      "brand_name": "Nike",
-      "category": "men",
-      "type": "Casual Shoes",
-      "amount": 15000,
-      "shoe_image": "https://rukminim2.flixcart.com/image/850/1000/xif0q/shoe/h/t/l/-original-imah4zkzwufnzkdm.jpeg?q=90&crop=false",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "a81e"
-    },
-    {
-      "shoe_name": "Nike Winflo 9",
-      "brand_name": "Nike",
-      "category": "women",
-      "type": "Sports Shoes",
-      "amount": 10000,
-      "shoe_image": "https://rukminim3.flixcart.com/image/850/1000/xif0q/shoe/r/z/n/-original-imah49fsbngqqpka.jpeg?q=90&crop=false",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "62bc"
-    },
-    {
-      "shoe_name": "Nike Court Vision Low",
-      "brand_name": "Nike",
-      "category": "men",
-      "type": "Formal Shoes",
-      "amount": 8500,
-      "shoe_image": "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/b98d16d8-f75b-4423-aa96-65cd68ac5277/NIKE+COURT+VISION+LO.png",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "8f91"
-    },
-    {
-      "shoe_name": "Nike Air Force 1",
-      "brand_name": "Nike",
-      "category": "women",
-      "type": "Casual Shoes",
-      "amount": 12000,
-      "shoe_image": "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/b7d9211c-26e7-431a-ac24-b0540fb3c00f/AIR+FORCE+1+%2707.png",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "8257"
-    },
-    {
-      "shoe_name": "Nike Revolution 6",
-      "brand_name": "Nike",
-      "category": "men",
-      "type": "Running Shoes",
-      "amount": 7000,
-      "shoe_image": "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/88c3280a-1b77-4cf9-957f-d71b91e90393/NIKE+REVOLUTION+6+NN.png",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "5dba"
-    },
-    {
-      "shoe_name": "Nike ZoomX Streakfly",
-      "brand_name": "Nike",
-      "category": "women",
-      "type": "Sports Shoes",
-      "amount": 13000,
-      "shoe_image": "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/7f6ab962-d260-4011-a05e-b0c8e01b4b22/NIKE+ZOOMX+STREAKFLY.png",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "f00d"
-    },
-    {
-      "shoe_name": "Adidas Ultraboost 22",
-      "brand_name": "Adidas",
-      "category": "men",
-      "type": "Running Shoes",
-      "amount": 16000,
-      "shoe_image": "https://assets.adidas.com/images/w_600,f_auto,q_auto/fbaf991a78bc4896a3e9ad7800abcec6_9366/Ultraboost_22_Shoes_Black_GZ0127_01_standard.jpg",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "e6c5"
-    },
-    {
-      "shoe_name": "Adidas NMD R1",
-      "brand_name": "Adidas",
-      "category": "women",
-      "type": "Casual Shoes",
-      "amount": 14000,
-      "shoe_image": "https://assets.adidas.com/images/w_600,f_auto,q_auto/fbaf991a78bc4896a3e9ad7800abcec6_9366/Ultraboost_22_Shoes_Black_GZ0127_01_standard.jpg",
-      "id": "0b53"
-    },
-    {
-      "shoe_name": "Adidas Adizero Boston 11",
-      "brand_name": "Adidas",
-      "category": "men",
-      "type": "Sports Shoes",
-      "amount": 12000,
-      "shoe_image": "https://rukminim2.flixcart.com/image/850/1000/xif0q/shoe/u/b/g/-original-imah4abg9hqvb5ns.jpeg?q=20&crop=false",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "1379"
-    },
-    {
-      "shoe_name": "Adidas Solar Glide 5",
-      "brand_name": "Adidas",
-      "category": "women",
-      "type": "Running Shoes",
-      "amount": 11500,
-      "shoe_image": "https://assets.adidas.com/images/w_600,f_auto,q_auto/f94f52174a1543ef84eaaed700f61e84_9366/Solarglide_5_Shoes_Blue_GX6706_01_standard.jpg",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "acfb"
-    },
-    {
-      "shoe_name": "Adidas 4DFWD 2",
-      "brand_name": "Adidas",
-      "category": "men",
-      "type": "Gym Sneakers",
-      "amount": 18000,
-      "shoe_image": "https://assets.adidas.com/images/w_600,f_auto,q_auto/87cd0b80e0434c758b15ae9801598eb2_9366/adidas_4DFWD_2_Running_Shoes_Grey_GX9250_01_standard.jpg",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "6967"
-    },
-    {
-      "shoe_name": "Adidas Pureboost 22",
-      "brand_name": "Adidas",
-      "category": "women",
-      "type": "Sports Shoes",
-      "amount": 11000,
-      "shoe_image": "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/6758df1ac9414bd0820fae2a0104e5cf_9366/Pureboost_22_Shoes_Black_GZ5174_01_standard.jpg",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "52f7"
-    },
-    {
-      "shoe_name": "Adidas Run Falcon 3.0",
-      "brand_name": "Adidas",
-      "category": "men",
-      "type": "Casual Shoes",
-      "amount": 7000,
-      "shoe_image": "https://rukminim2.flixcart.com/image/850/1000/xif0q/shoe/h/1/y/-original-imah46qfgzsjzxk2.jpeg?q=20&crop=false",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "9650"
-    },
-    {
-      "shoe_name": "Adidas Supernova 2",
-      "brand_name": "Adidas",
-      "category": "women",
-      "type": "Formal Shoes",
-      "amount": 9000,
-      "shoe_image": "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/301330c49d7d45219f9dae2a008185cf_9366/Supernova_2_Running_Shoes_White_GW9089_01_standard.jpg",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "6b83"
-    },
-    {
-      "shoe_name": "Adidas X9000L4",
-      "brand_name": "Adidas",
-      "category": "men",
-      "type": "Running Shoes",
-      "amount": 13500,
-      "shoe_image": "https://assets.adidas.com/images/w_600,f_auto,q_auto/0f60b0467f954e9d8018ae8b016a0541_9366/X9000L4_U_Black_HR1727_01_standard.jpg",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "bfe8"
-    },
-    {
-      "shoe_name": "Adidas Swift Run 22",
-      "brand_name": "Adidas",
-      "category": "women",
-      "type": "Casual Shoes",
-      "amount": 8500,
-      "shoe_image": "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/61154a61c3434e158821ad7c00601d66_9366/Swift_Run_22_Shoes_Black_GZ3500_01_standard.jpg",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "5c92"
-    },
-    {
-      "shoe_name": "Reebok Nano X3",
-      "brand_name": "Reebok",
-      "category": "men",
-      "type": "Gym Sneakers",
-      "amount": 12500,
-      "shoe_image": "https://images.reebok.eu/reebok-nano-x3-shoes_19729470_44847061_2048.jpg?c=1",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "0258"
-    },
-    {
-      "shoe_name": "Reebok Floatride Energy 4",
-      "brand_name": "Reebok",
-      "category": "women",
-      "type": "Running Shoes",
-      "amount": 10000,
-      "shoe_image": "https://images.reebok.eu/reebok-floatride-energy-4-adventure-shoes_19727129_44793565_2048.jpg?c=1",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "0e22"
-    },
-    {
-      "shoe_name": "Reebok Zig Kinetica 2.5",
-      "brand_name": "Reebok",
-      "category": "men",
-      "type": "Casual Shoes",
-      "amount": 13500,
-      "shoe_image": "https://images.reebok.eu/reebok-zig-kinetica-2-5-edge-shoes_20136805_51799555_2048.jpg?c=1",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "577a"
-    },
-    {
-      "shoe_name": "Reebok Classic Leather",
-      "brand_name": "Reebok",
-      "category": "women",
-      "type": "Casual Shoes",
-      "amount": 8500,
-      "shoe_image": "https://imagescdn.reebok.in/img/app/product/7/774341-8916770.jpg?auto=format&w=390",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "dc31"
-    },
-    {
-      "shoe_name": "Puma Velocity Nitro 2",
-      "brand_name": "Puma",
-      "category": "men",
-      "type": "Running Shoes",
-      "amount": 11500,
-      "shoe_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr3icZ14ppu9gaMbGyRmM9NH54EUT80nT2IA&s",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "b997"
-    },
-    {
-      "shoe_name": "Puma Deviate Nitro",
-      "brand_name": "Puma",
-      "category": "women",
-      "type": "Gym Sneakers",
-      "amount": 12500,
-      "shoe_image": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/377787/01/sv01/fnd/IND/fmt/png/Deviate-NITRO%E2%84%A2-Elite-2-women's-Running-Shoes",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "1e5a"
-    },
-    {
-      "shoe_name": "Puma RS-X",
-      "brand_name": "Puma",
-      "category": "men",
-      "type": "Casual Shoes",
-      "amount": 10000,
-      "shoe_image": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_600,h_600/global/391174/01/sv03/fnd/IND/fmt/png/RS-X-Geek-Unisex-Sneakers",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "50a7"
-    },
-    {
-      "shoe_name": "Puma Cali Star",
-      "brand_name": "Puma",
-      "category": "women",
-      "type": "Casual Shoes",
-      "amount": 9500,
-      "shoe_image": "https://images.puma.com/image/upload/f_auto,q_auto,b_rgb:fafafa,w_2000,h_2000/global/387679/02/sv01/fnd/IND/fmt/png/Cali-Star-Glam-women's-Sneakers",
-      "shoe_size": [
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "id": "86b2"
-    },
-    {
-      "id": "2740",
-      "shoe_name": "Nike Vomero 18",
-      "brand_name": "Nike",
-      "category": "men",
-      "type": "Running Shoes",
-      "amount": "15000",
-      "shoe_image": "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/1983f2e1-0271-479c-bada-6176a571fa4f/NIKE+VOMERO+18.png"
-    },
-    {
-      "id": "d501",
-      "shoe_name": "Nike Pegasus Premium",
-      "brand_name": "Nike",
-      "category": "men",
-      "type": "Running Shoes",
-      "amount": "19500",
-      "shoe_image": "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/4b476e07-8dce-4d55-8ff7-49299ab0696f/NIKE+PEGASUS+PREMIUM.png"
-    },
-    {
-      "id": "7aca",
-      "shoe_name": "Nike Revolution 7 ",
-      "brand_name": "Nike",
-      "category": "women",
-      "type": "Running Shoes",
-      "amount": "12000",
-      "shoe_image": "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/450ed1df-8e17-4d87-a244-85697874661c/NIKE+REVOLUTION+7.png"
-    },
-    {
-      "id": "e7d4",
-      "shoe_name": "Nike Interact",
-      "brand_name": "Nike",
-      "category": "men",
-      "type": "Running Shoes",
-      "amount": "19000",
-      "shoe_image": "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/65d684cb-c14a-43d4-80c2-c1c43b7892e6/NIKE+INTERACT+RUN.png"
-    },
-    {
-      "id": "1ca7",
-      "shoe_name": "Nike Revolution 7 ",
-      "brand_name": "Nike",
-      "category": "men",
-      "type": "Running Shoes",
-      "amount": "22000",
-      "shoe_image": "https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco,u_126ab356-44d8-4a06-89b4-fcdcc8df0245,c_scale,fl_relative,w_1.0,h_1.0,fl_layer_apply/c53b6a0a-d09d-4518-b004-3923b8c66557/JORDAN+ZION+4+PF.png"
-    },
-    {
-      "id": "9dc0",
-      "shoe_name": "Nike Revolution 700",
-      "brand_name": "Nike",
-      "category": "women",
-      "type": "Basket shoes",
-      "amount": "20000",
-      "shoe_image": "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/450ed1df-8e17-4d87-a244-85697874661c/NIKE+REVOLUTION+7.png"
-    }
-  ]
+  "shoe_name": "Nike React Infinity Run Flyknit 3",
+  "brand_name": "Nike",
+  "description": "Comfortable and durable shoes for women.",
+  "category": "women",
+  "type": "Gym Sneakers",
+  "amount":14000,
+  "count": 10,
+  "images": [
+    "https://rukminim2.flixcart.com/image/850/1000/xif0q/shoe/m/r/k/-original-imah5xtebndcez8q.jpeg?q=90&crop=false"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Nike Metcon 90",
+  "brand_name": "Nike",
+  "description": "Comfortable and durable shoes for men.",
+  "category": "men",
+  "type": "Gym Sneakers",
+  "amount": 12000,
+  "count": 10,
+  "images": [
+    "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/2e5c5e46-3689-4967-8e84-671eb4c6ae46/M+NIKE+METCON+9+AMP.png"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Nike Free Run 5.0",
+  "brand_name": "Nike",
+  "description": "Comfortable and durable shoes for women.",
+  "category": "women",
+  "type": "Running Shoes",
+  "amount": 9000,
+  "count": 10,
+  "images": [
+    "https://static.nike.com/a/images/t_PDP_1280_v1/f_auto,q_auto:eco/99486859-0ff3-46b4-949b-2d16af2ad421/custom-nike-dunk-high-by-you-shoes.png"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Nike Air Max 270",
+  "brand_name": "Nike",
+  "description": "Comfortable and durable shoes for men.",
+  "category": "men",
+  "type": "Casual Shoes",
+  "amount": 15000,
+  "count": 10,
+  "images": [
+    "https://rukminim2.flixcart.com/image/850/1000/xif0q/shoe/h/t/l/-original-imah4zkzwufnzkdm.jpeg?q=90&crop=false"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Nike Winflo 9",
+  "brand_name": "Nike",
+  "description": "Comfortable and durable shoes for women.",
+  "category": "women",
+  "type": "Sports Shoes",
+  "amount": 10000,
+  "count": 10,
+  "images": [
+    "https://rukminim3.flixcart.com/image/850/1000/xif0q/shoe/r/z/n/-original-imah49fsbngqqpka.jpeg?q=90&crop=false"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Nike Court Vision Low",
+  "brand_name": "Nike",
+  "description": "Comfortable and durable shoes for men.",
+  "category": "men",
+  "type": "Formal Shoes",
+  "amount": 8500,
+  "count": 10,
+  "images": [
+    "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/b98d16d8-f75b-4423-aa96-65cd68ac5277/NIKE+COURT+VISION+LO.png"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Nike Air Force 1",
+  "brand_name": "Nike",
+  "description": "Comfortable and durable shoes for women.",
+  "category": "women",
+  "type": "Casual Shoes",
+  "amount": 12000,
+  "count": 10,
+  "images": [
+    "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/b7d9211c-26e7-431a-ac24-b0540fb3c00f/AIR+FORCE+1+%2707.png"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Nike Revolution 6",
+  "brand_name": "Nike",
+  "description": "Comfortable and durable shoes for men.",
+  "category": "men",
+  "type": "Running Shoes",
+  "amount": 7000,
+  "count": 10,
+  "images": [
+    "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/88c3280a-1b77-4cf9-957f-d71b91e90393/NIKE+REVOLUTION+6+NN.png"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Nike ZoomX Streakfly",
+  "brand_name": "Nike",
+  "description": "Comfortable and durable shoes for women.",
+  "category": "women",
+  "type": "Sports Shoes",
+  "amount": 13000,
+  "count": 10,
+  "images": [
+    "https://static.nike.com/a/images/t_PDP_936_v1/f_auto,q_auto:eco/7f6ab962-d260-4011-a05e-b0c8e01b4b22/NIKE+ZOOMX+STREAKFLY.png"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Adidas Ultraboost 22",
+  "brand_name": "Adidas",
+  "description": "Comfortable and durable shoes for men.",
+  "category": "men",
+  "type": "Running Shoes",
+  "amount": 16000,
+  "count": 10,
+  "images": [
+    "https://assets.adidas.com/images/w_600,f_auto,q_auto/fbaf991a78bc4896a3e9ad7800abcec6_9366/Ultraboost_22_Shoes_Black_GZ0127_01_standard.jpg"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Adidas NMD R1",
+  "brand_name": "Adidas",
+  "description": "Comfortable and durable shoes for women.",
+  "category": "women",
+  "type": "Casual Shoes",
+  "amount": 14000,
+  "count": 10,
+  "images": [
+    "https://assets.adidas.com/images/w_600,f_auto,q_auto/fbaf991a78bc4896a3e9ad7800abcec6_9366/Ultraboost_22_Shoes_Black_GZ0127_01_standard.jpg"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Adidas Adizero Boston 11",
+  "brand_name": "Adidas",
+  "description": "Comfortable and durable shoes for men.",
+  "category": "men",
+  "type": "Sports Shoes",
+  "amount": 12000,
+  "count": 10,
+  "images": [
+    "https://rukminim2.flixcart.com/image/850/1000/xif0q/shoe/u/b/g/-original-imah4abg9hqvb5ns.jpeg?q=20&crop=false"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Adidas Solar Glide 5",
+  "brand_name": "Adidas",
+  "description": "Comfortable and durable shoes for women.",
+  "category": "women",
+  "type": "Running Shoes",
+  "amount": 11500,
+  "count": 10,
+  "images": [
+    "https://assets.adidas.com/images/w_600,f_auto,q_auto/f94f52174a1543ef84eaaed700f61e84_9366/Solarglide_5_Shoes_Blue_GX6706_01_standard.jpg"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Adidas 4DFWD 2",
+  "brand_name": "Adidas",
+  "description": "Comfortable and durable shoes for men.",
+  "category": "men",
+  "type": "Gym Sneakers",
+  "amount": 18000,
+  "count": 10,
+  "images": [
+    "https://assets.adidas.com/images/w_600,f_auto,q_auto/87cd0b80e0434c758b15ae9801598eb2_9366/adidas_4DFWD_2_Running_Shoes_Grey_GX9250_01_standard.jpg"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Adidas Pureboost 22",
+  "brand_name": "Adidas",
+  "description": "Comfortable and durable shoes for women.",
+  "category": "women",
+  "type": "Sports Shoes",
+  "amount": 11000,
+  "count": 10,
+  "images": [
+    "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/6758df1ac9414bd0820fae2a0104e5cf_9366/Pureboost_22_Shoes_Black_GZ5174_01_standard.jpg"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Adidas Run Falcon 3.0",
+  "brand_name": "Adidas",
+  "description": "Comfortable and durable shoes for men.",
+  "category": "men",
+  "type": "Casual Shoes",
+  "amount": 7000,
+  "count": 10,
+  "images": [
+    "https://rukminim2.flixcart.com/image/850/1000/xif0q/shoe/h/1/y/-original-imah46qfgzsjzxk2.jpeg?q=20&crop=false"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Adidas Supernova 2",
+  "brand_name": "Adidas",
+  "description": "Comfortable and durable shoes for women.",
+  "category": "women",
+  "type": "Formal Shoes",
+  "amount": 9000,
+  "count": 10,
+  "images": [
+    "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/301330c49d7d45219f9dae2a008185cf_9366/Supernova_2_Running_Shoes_White_GW9089_01_standard.jpg"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Adidas X9000L4",
+  "brand_name": "Adidas",
+  "description": "Comfortable and durable shoes for men.",
+  "category": "men",
+  "type": "Running Shoes",
+  "amount": 13500,
+  "count": 10,
+  "images": [
+    "https://assets.adidas.com/images/w_600,f_auto,q_auto/0f60b0467f954e9d8018ae8b016a0541_9366/X9000L4_U_Black_HR1727_01_standard.jpg"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Adidas Swift Run 22",
+  "brand_name": "Adidas",
+  "description": "Comfortable and durable shoes for women.",
+  "category": "women",
+  "type": "Casual Shoes",
+  "amount": 8500,
+  "count": 10,
+  "images": [
+    "https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/61154a61c3434e158821ad7c00601d66_9366/Swift_Run_22_Shoes_Black_GZ3500_01_standard.jpg"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Reebok Nano X3",
+  "brand_name": "Reebok",
+  "description": "Comfortable and durable shoes for men.",
+  "category": "men",
+  "type": "Gym Sneakers",
+  "amount": 12500,
+  "count": 10,
+  "images": [
+    "https://images.reebok.eu/reebok-nano-x3-shoes_19729470_44847061_2048.jpg?c=1"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Reebok Floatride Energy 4",
+  "brand_name": "Reebok",
+  "description": "Comfortable and durable shoes for women.",
+  "category": "women",
+  "type": "Running Shoes",
+  "amount": 10000,
+  "count": 10,
+  "images": [
+    "https://images.reebok.eu/reebok-floatride-energy-4-adventure-shoes_19727129_44793565_2048.jpg?c=1"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Reebok Zig Kinetica 2.5",
+  "brand_name": "Reebok",
+  "description": "Comfortable and durable shoes for men.",
+  "category": "men",
+  "type": "Casual Shoes",
+  "amount": 13500,
+  "count": 10,
+  "images": [
+    "https://images.reebok.eu/reebok-zig-kinetica-2-5-edge-shoes_20136805_51799555_2048.jpg?c=1"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
+},
+{
+  "shoe_name": "Reebok Classic Leather",
+  "brand_name": "Reebok",
+  "description": "Comfortable and durable shoes for women.",
+  "category": "women",
+  "type": "Casual Shoes",
+  "amount": 8500,
+  "count": 10,
+  "images": [
+    "https://imagescdn.reebok.in/img/app/product/7/774341-8916770.jpg?auto=format&w=390"
+  ],
+  "isActive": true,
+  "createdAt": "2024-01-01",
+  "updatedAt": "2024-01-01"
 }
+]

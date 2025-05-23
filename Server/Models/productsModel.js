@@ -17,10 +17,10 @@ const productsSchema=new mongoose.Schema({
         type:String
     },
     amount:{
-        type:String
+        type:Number
     },
     count:{
-        type:String
+        type:Number
     },
     images:[
         {
