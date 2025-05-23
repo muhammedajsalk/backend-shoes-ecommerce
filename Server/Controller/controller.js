@@ -10,7 +10,7 @@ require('dotenv').config()
 
 const jwt_secret_code = process.env.JWT_SECRETCODE
 
-async function registerPost(req, res) {
+async function userRegister(req, res) {
     try {
         const { name, email, password } = req.body
         const saltRounds = 10
@@ -50,7 +50,7 @@ async function registerPost(req, res) {
 
 
 
-async function loginPost(req, res) {
+async function userLogin(req, res) {
     try {
         const getUser = await userModel.findOne({ email: req.body.email })
         if (getUser == null) return res.status(400).json({ success: false, message: "You entered incorrect details" })
@@ -64,7 +64,7 @@ async function loginPost(req, res) {
             sameSite: 'strict',
             maxAge: 60 * 60 * 1000
         })
-        res.json({ success: true, message: "user is loged",data:getUser})
+        res.json({ success: true, message: "user is loged", data: getUser })
     } catch (error) {
         res.status(500).json({ success: false, message: "internal server error" })
     }
@@ -271,8 +271,8 @@ async function postOrders(req, res) {
                 quantity: quantity,
                 price: productsDatas.amount
             })
-            total+=productsDatas.amount*quantity
-            productsDatas.count-=quantity
+            total += productsDatas.amount * quantity
+            productsDatas.count -= quantity
             await productsDatas.save()
         }
 
@@ -292,4 +292,15 @@ async function postOrders(req, res) {
     }
 }
 
-module.exports = { registerPost, loginPost, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders }
+async function getOrders(req, res) {
+    try {
+        const userId = req.user.id
+        const ordersData = await orderModel.find({ orderBy: userId }).populate("items.productId")
+        if (!ordersData) return res.status(400).json({ success: false, message: "order details is empty" })
+        res.status(200).json({success:true, data: ordersData })
+    } catch (error) {
+       res.status(400).json({success:false,message:"internal server erorr"})
+    }
+}
+
+module.exports = { userRegister, userLogin, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders, getOrders }
