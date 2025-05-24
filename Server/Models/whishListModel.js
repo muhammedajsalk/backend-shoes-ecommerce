@@ -4,14 +4,18 @@ const wishlistSchema=new mongoose.Schema({
     userId:{
         type:String
     },
-    productId:{
-        type:String
-    },
+    productIds:[
+        {
+            productId:{
+                type:String
+            }
+        }
+    ],
     addedAt:{
         type:String
     }
 })
 
-const wishlistModel=mongoose.model("wishlist",wishlistSchema)
+const wishlistModel=mongoose.model("wishliststs",wishlistSchema)
 
 module.exports=wishlistModel

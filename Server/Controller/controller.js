@@ -1,6 +1,7 @@
 const userModel = require("../Models/usersModel")
 const productModel = require("../Models/productsModel")
 const cartModel = require("../Models/CartModel")
+const wishlistModel = require('../Models/whishListModel')
 const bycrypt = require('bcryptjs')
 const moment = require('moment-timezone');
 const jwt = require('jsonwebtoken')
@@ -297,12 +298,39 @@ async function getOrders(req, res) {
         const userId = req.user.id
         const ordersData = await orderModel.find({ orderBy: userId }).populate("items.productId")
         if (!ordersData) return res.status(400).json({ success: false, message: "order details is empty" })
-        res.status(200).json({success:true, data: ordersData })
+        res.status(200).json({ success: true, data: ordersData })
     } catch (error) {
-       res.status(400).json({success:false,message:"internal server erorr"})
+        res.status(400).json({ success: false, message: "internal server erorr" })
     }
 }
 
+async function userWhislistPost(req, res) {
+    try {
+        const userId = req.user.id
+        const productId=req.params.id
+        const userWhislist = await wishlistModel.findOne({ userId: userId })
+        if (!userWhislist) {
+            const newuserWhislist = new wishlistModel({
+                userId: userId,
+                productIds: [
+                    {
+                        productId:productId
+                    }
+                ],
+                addedAt:moment().tz("Asia/Kolkata").format()
+            })
+            const save=await newuserWhislist.save()
+            return res.status(200).json({success:true,data:save,message:"the product added wishlist"})
+        }
+        const produnctInArray=userWhislist.productIds.find(item=>item.productId===productId)
+        if(produnctInArray) return res.status(400).json({success:false,message:"the product is already wishlist"})
+        userWhislist.productIds.push({productId:productId})
+        const save=await userWhislist.save()
+        return res.status(200).json({success:true,data:save,message:"the product added wishlist"})
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({success:false,message:"internal server error"})
+    }
+}
 
-
-module.exports = { userRegister, userLogin, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders, getOrders }
+module.exports = { userRegister, userLogin, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders, getOrders,userWhislistPost }
