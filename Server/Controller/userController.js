@@ -333,4 +333,15 @@ async function userWhislistPost(req, res) {
     }
 }
 
-module.exports = { userRegister, userLogin, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders, getOrders,userWhislistPost }
+async function getWhishList(req,res){
+   try {
+    const userId=req.user.id
+    const userWhishlist=await wishlistModel.findOne({userId:userId}).populate('productIds.productId')
+    if(!userWhishlist) return res.status(400).json({success:false,message:"the whislist is empty"})
+    return res.status(200).json({success:true,data:userWhishlist})
+   } catch (error) {
+    return res.status(200).json({success:false,message:"internal server error"})
+   }
+}
+
+module.exports = { userRegister, userLogin, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders, getOrders,userWhislistPost,getWhishList}
