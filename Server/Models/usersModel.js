@@ -36,9 +36,6 @@ const userSchema = new mongoose.Schema({
     resetTokenExpery:{
         type:Date
     },
-    wishlist: {
-        type: Array
-    },
     createdAt: {
         type: String
     },
