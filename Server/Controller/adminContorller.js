@@ -89,7 +89,7 @@ async function getProductsByCategory(req, res) {
     try {
         const category = req.params.category
         const categoryDatas = await productModel.find({ category: category })
-        if (categoryDatas.length===0) return res.status(400).json({ success: false, message: "this category not in database" })
+        if (categoryDatas.length === 0) return res.status(400).json({ success: false, message: "this category not in database" })
         res.status(200).json({ success: true, data: categoryDatas })
     } catch (error) {
         res.status(500).json({ success: false, message: "internal server error" })
@@ -97,4 +97,16 @@ async function getProductsByCategory(req, res) {
     }
 }
 
-module.exports = { getAllUser, adminLogin, getUserById, addProduct, getAllProducts ,getProductsByCategory}
+async function getProductById(req, res) {
+    try {
+        const productId = req.params.id
+        const product_data = await productModel.findById(productId)
+        if (!product_data) return res.status(400).json({ success: false, message: "the product not found in database" })
+        res.status(200).json({ success: true, data: product_data })
+    } catch (error) {
+        res.status(500).json({ success: false, message: "internal server error" })
+        console.log(error);
+    }
+}
+
+module.exports = { getAllUser, adminLogin, getUserById, addProduct, getAllProducts, getProductsByCategory, getProductById }
