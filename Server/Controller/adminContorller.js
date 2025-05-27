@@ -136,4 +136,15 @@ async function blockAndUnBlock(req, res) {
     }
 }
 
-module.exports = { getAllUser, adminLogin, getUserById, addProduct, getAllProducts, getProductsByCategory, getProductById, editProducts,blockAndUnBlock}
+
+async function getAllOrders(req, res) {
+    try {
+        const allOrders = await orderModel.find()
+        res.status(200).json({ success: true, data: allOrders })
+    } catch (error) {
+        res.status(500).json({ success: false, message: "internal server error" })
+        console.log(error)
+    }
+}
+
+module.exports = { getAllUser, adminLogin, getUserById, addProduct, getAllProducts, getProductsByCategory, getProductById, editProducts, blockAndUnBlock, getAllOrders }

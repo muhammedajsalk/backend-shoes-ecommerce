@@ -2,7 +2,7 @@ const express=require('express')
 const router=express.Router()
 const jwtAdminMiddleware=require("../middlewares/jwtAdminMiddleware")
 const fileUploader=require('../middlewares/multerMiddleware')
-const {getAllUser,adminLogin,getUserById,addProduct,getAllProducts,getProductsByCategory,getProductById,editProducts,blockAndUnBlock}=require('../Controller/adminContorller')
+const {getAllUser,adminLogin,getUserById,addProduct,getAllProducts,getProductsByCategory,getProductById,editProducts,blockAndUnBlock,getAllOrders}=require('../Controller/adminContorller')
 
 const addProductMid=[jwtAdminMiddleware,fileUploader.single("images")]
 
@@ -22,7 +22,9 @@ router.get("/product/:id",jwtAdminMiddleware,getProductById)
 
 router.patch("/products/:id",jwtAdminMiddleware,editProducts)
 
-router.patch("/users/:id",blockAndUnBlock)
+router.patch("/users/:id",jwtAdminMiddleware,blockAndUnBlock)
+
+router.get("/orders",getAllOrders)
 
 
 module.exports=router
