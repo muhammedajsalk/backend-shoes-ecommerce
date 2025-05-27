@@ -109,16 +109,31 @@ async function getProductById(req, res) {
     }
 }
 
-async function editProducts(req,res){
-  try {
-    const editedDetails=req.body
-    const productId=req.params.id
-    const newData=await productModel.updateOne({_id:productId},{$set:editedDetails})
-    if(newData.matchedCount===0) return res.status(400).json({success:false,message:"the product is not in database"})
-    res.status(200).json({success:true,data:newData,message:"the product is edited succefully"})
-  } catch (error) {
-    console.log(error)
-  }
+async function editProducts(req, res) {
+    try {
+        const editedDetails = req.body
+        const productId = req.params.id
+        const newData = await productModel.updateOne({ _id: productId }, { $set: editedDetails })
+        if (newData.matchedCount === 0) return res.status(400).json({ success: false, message: "the product is not in database" })
+        res.status(200).json({ success: true, data: newData, message: "the product is edited succefully" })
+    } catch (error) {
+        res.status(500).json({ success: false, message: "internal server error" })
+        console.log(error)
+    }
 }
 
-module.exports = { getAllUser, adminLogin, getUserById, addProduct, getAllProducts, getProductsByCategory, getProductById,editProducts }
+
+async function blockAndUnBlock(req, res) {
+    try {
+        const userId = req.params.id
+        const isActive = req.body
+        const newData = await userModel.updateOne({ _id: userId }, { $set: isActive })
+        if (newData.matchedCount === 0) return res.status(400).json({ success: false, message: "the user is not in database" })
+        res.status(200).json({ success: true, data: newData, message: !req.body.isActive ? "the user is blocked succefully" : "the user is unBlocked succefully" })
+    } catch (error) {
+        res.status(500).json({ success: false, message: "internal server error" })
+        console.log(error)
+    }
+}
+
+module.exports = { getAllUser, adminLogin, getUserById, addProduct, getAllProducts, getProductsByCategory, getProductById, editProducts,blockAndUnBlock}
