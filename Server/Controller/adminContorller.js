@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken')
 const { default: mongoose } = require("mongoose")
 const orderModel = require("../Models/ordersModel")
 require('dotenv').config()
+const multer=require('multer')
 
 
 async function getAllUser(req, res) {
@@ -55,8 +56,17 @@ async function getUserById(req, res) {
 
 async function addProduct(req,res){
     try {
-        const productData=req.body
-        const newProductData=new productModel(productData)
+        const {shoe_name,brand_name,type,description,amount,count,category}=req.body
+        const newProductData=new productModel({
+            shoe_name,
+            brand_name,
+            type,
+            description,
+            amount,
+            count,
+            category,
+            images:req.file?req.file.path:null
+        })
         const save=await newProductData.save()
         res.status(200).json({success:true,data:save})
     } catch (error) {
