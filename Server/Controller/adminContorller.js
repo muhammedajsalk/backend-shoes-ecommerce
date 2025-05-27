@@ -109,4 +109,16 @@ async function getProductById(req, res) {
     }
 }
 
-module.exports = { getAllUser, adminLogin, getUserById, addProduct, getAllProducts, getProductsByCategory, getProductById }
+async function editProducts(req,res){
+  try {
+    const editedDetails=req.body
+    const productId=req.params.id
+    const newData=await productModel.updateOne({_id:productId},{$set:editedDetails})
+    if(newData.matchedCount===0) return res.status(400).json({success:false,message:"the product is not in database"})
+    res.status(200).json({success:true,data:newData,message:"the product is edited succefully"})
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+module.exports = { getAllUser, adminLogin, getUserById, addProduct, getAllProducts, getProductsByCategory, getProductById,editProducts }
