@@ -13,14 +13,6 @@ function Register() {
     email: "",
     password: "",
     cpassword: "",
-    cart: [],
-    orders: {
-      date: "",
-      products: [],
-      amount: "",
-      payment_details: ""
-    },
-    isActive: true
   }
 
   const navigate = useNavigate()
@@ -34,7 +26,10 @@ function Register() {
           .then(response => {
             navigate("/login")
           })
-          .catch(err => toast.error(`error found post${err.message}`))
+          .catch(err => {
+            const msg = err.response?.data?.message || err.message;
+            toast.error(`Error: ${msg}`);
+          });
       }
     }
   )

@@ -16,6 +16,11 @@ async function userRegister(req, res) {
         const { name, email, password } = req.body
         const saltRounds = 10
         const hashedpassword = await bycrypt.hash(password, saltRounds)
+        const emailMatch = await userModel.findOne({ email: email })
+        if (emailMatch) return res.status(400).json({
+            success: false,
+            message: "Email already exists, please use another email"
+        })
         const newData = new userModel({
             name: name,
             email: email,
@@ -28,7 +33,7 @@ async function userRegister(req, res) {
         const accesTokken = await jwt.sign({ id: newData._id }, jwt_secret_code, { expiresIn: '1h' })
         res.cookie("accesTokken", accesTokken, {
             httpOnly: true,
-            secure: true,
+            secure: false,
             sameSite: 'strict',
             maxAge: 60 * 60 * 1000
         })
@@ -215,7 +220,7 @@ async function getAllCartProducts(req, res) {
         ))
         res.status(200).json({ success: true, data: cartproductdetails })
     } catch (error) {
-        res.status(500).json({success:false,message:"interanal server error"})
+        res.status(500).json({ success: false, message: "interanal server error" })
     }
 
 }
@@ -307,41 +312,41 @@ async function getOrders(req, res) {
 async function userWhislistPost(req, res) {
     try {
         const userId = req.user.id
-        const productId=req.params.id
+        const productId = req.params.id
         const userWhislist = await wishlistModel.findOne({ userId: userId })
         if (!userWhislist) {
             const newuserWhislist = new wishlistModel({
                 userId: userId,
                 productIds: [
                     {
-                        productId:productId
+                        productId: productId
                     }
                 ],
-                addedAt:moment().tz("Asia/Kolkata").format()
+                addedAt: moment().tz("Asia/Kolkata").format()
             })
-            const save=await newuserWhislist.save()
-            return res.status(200).json({success:true,data:save,message:"the product added wishlist"})
+            const save = await newuserWhislist.save()
+            return res.status(200).json({ success: true, data: save, message: "the product added wishlist" })
         }
-        const produnctInArray=userWhislist.productIds.find(item=>item.productId===productId)
-        if(produnctInArray) return res.status(400).json({success:false,message:"the product is already wishlist"})
-        userWhislist.productIds.push({productId:productId})
-        const save=await userWhislist.save()
-        return res.status(200).json({success:true,data:save,message:"the product added wishlist"})
+        const produnctInArray = userWhislist.productIds.find(item => item.productId === productId)
+        if (produnctInArray) return res.status(400).json({ success: false, message: "the product is already wishlist" })
+        userWhislist.productIds.push({ productId: productId })
+        const save = await userWhislist.save()
+        return res.status(200).json({ success: true, data: save, message: "the product added wishlist" })
     } catch (error) {
         console.log(error)
-        return res.status(500).json({success:false,message:"internal server error"})
+        return res.status(500).json({ success: false, message: "internal server error" })
     }
 }
 
-async function getWhishList(req,res){
-   try {
-    const userId=req.user.id
-    const userWhishlist=await wishlistModel.findOne({userId:userId}).populate('productIds.productId')
-    if(!userWhishlist) return res.status(400).json({success:false,message:"the whislist is empty"})
-    return res.status(200).json({success:true,data:userWhishlist})
-   } catch (error) {
-    return res.status(500).json({success:false,message:"internal server error"})
-   }
+async function getWhishList(req, res) {
+    try {
+        const userId = req.user.id
+        const userWhishlist = await wishlistModel.findOne({ userId: userId }).populate('productIds.productId')
+        if (!userWhishlist) return res.status(400).json({ success: false, message: "the whislist is empty" })
+        return res.status(200).json({ success: true, data: userWhishlist })
+    } catch (error) {
+        return res.status(500).json({ success: false, message: "internal server error" })
+    }
 }
 
-module.exports = { userRegister, userLogin, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders, getOrders,userWhislistPost,getWhishList}
+module.exports = { userRegister, userLogin, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders, getOrders, userWhislistPost, getWhishList }
