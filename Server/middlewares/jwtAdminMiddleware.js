@@ -12,7 +12,7 @@ function jwtAdminMiddleware(req, res, next) {
             next()
         })
     } catch (error) {
-      res.status(400).json({success:false,message:"internal server error"})
+      res.status(500).json({success:false,message:"internal server error"})
       console.log(`the jwt error`+error)
     }
 }

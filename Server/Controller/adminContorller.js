@@ -15,7 +15,7 @@ async function getAllUser(req, res) {
         const userData = await userModel.find()
         res.status(200).json({ success: true, data: userData })
     } catch (error) {
-        res.status(200).json({ success: false, message: "internal server error" })
+        res.status(500).json({ success: false, message: "internal server error" })
     }
 }
 
@@ -36,7 +36,7 @@ async function adminLogin(req, res) {
         })
         res.status(200).json({ success: true, message: "user is loged" })
     } catch (error) {
-        res.status(400).json({ success: false, message: "internal server error" })
+        res.status(500).json({ success: false, message: "internal server error" })
         console.log(error)
     }
 }
@@ -48,7 +48,7 @@ async function getUserById(req, res) {
         if (!userData) return res.status(400).json({ success: false, message: "the id is not user" })
         res.status(200).json({ success: true, data: userData })
     } catch (error) {
-       res.status(400).json({success:false,message:"internal server error"})
+       res.status(500).json({success:false,message:"internal server error"})
        console.log(error)
     }
 }
@@ -60,9 +60,19 @@ async function addProduct(req,res){
         const save=await newProductData.save()
         res.status(200).json({success:true,data:save})
     } catch (error) {
-        res.status(200).json({success:false,message:"internal server error"})
+        res.status(500).json({success:false,message:"internal server error"})
         console.log(error);
     }
 }
 
-module.exports = { getAllUser, adminLogin ,getUserById,addProduct}
+async function getAllProducts(req,res){
+    try {
+        const product_data=await productModel.find()
+        res.status(200).json({success:true,data:product_data})
+    } catch (error) {
+        res.status(500).json({success:false,message:"internal server error"})
+        console.log(error);
+    }
+}
+
+module.exports = { getAllUser, adminLogin ,getUserById,addProduct,getAllProducts}

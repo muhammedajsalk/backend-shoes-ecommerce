@@ -215,7 +215,7 @@ async function getAllCartProducts(req, res) {
         ))
         res.status(200).json({ success: true, data: cartproductdetails })
     } catch (error) {
-
+        res.status(500).json({success:false,message:"interanal server error"})
     }
 
 }
@@ -288,7 +288,7 @@ async function postOrders(req, res) {
         const save = await createOrder.save()
         return res.status(200).json({ success: true, data: save })
     } catch (error) {
-        res.status(400).json({ success: false, message: "internal Server Error" })
+        res.status(500).json({ success: false, message: "internal Server Error" })
         console.log("internal error " + error)
     }
 }
@@ -300,7 +300,7 @@ async function getOrders(req, res) {
         if (!ordersData) return res.status(400).json({ success: false, message: "order details is empty" })
         res.status(200).json({ success: true, data: ordersData })
     } catch (error) {
-        res.status(400).json({ success: false, message: "internal server erorr" })
+        res.status(500).json({ success: false, message: "internal server erorr" })
     }
 }
 
@@ -329,7 +329,7 @@ async function userWhislistPost(req, res) {
         return res.status(200).json({success:true,data:save,message:"the product added wishlist"})
     } catch (error) {
         console.log(error)
-        return res.status(400).json({success:false,message:"internal server error"})
+        return res.status(500).json({success:false,message:"internal server error"})
     }
 }
 
@@ -340,7 +340,7 @@ async function getWhishList(req,res){
     if(!userWhishlist) return res.status(400).json({success:false,message:"the whislist is empty"})
     return res.status(200).json({success:true,data:userWhishlist})
    } catch (error) {
-    return res.status(200).json({success:false,message:"internal server error"})
+    return res.status(500).json({success:false,message:"internal server error"})
    }
 }
 
