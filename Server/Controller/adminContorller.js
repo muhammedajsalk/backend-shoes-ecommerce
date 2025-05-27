@@ -34,11 +34,35 @@ async function adminLogin(req, res) {
             sameSite: 'strict',
             maxAge: 60 * 60 * 1000
         })
-        res.status(200).json({ success: true, message: "user is loged"})
+        res.status(200).json({ success: true, message: "user is loged" })
     } catch (error) {
         res.status(400).json({ success: false, message: "internal server error" })
         console.log(error)
     }
 }
 
-module.exports = { getAllUser, adminLogin }
+async function getUserById(req, res) {
+    try {
+        const userId = req.params.id
+        const userData = await userModel.findById({ _id:userId })
+        if (!userData) return res.status(400).json({ success: false, message: "the id is not user" })
+        res.status(200).json({ success: true, data: userData })
+    } catch (error) {
+       res.status(400).json({success:false,message:"internal server error"})
+       console.log(error)
+    }
+}
+
+async function addProduct(req,res){
+    try {
+        const productData=req.body
+        const newProductData=new productModel(productData)
+        const save=await newProductData.save()
+        res.status(200).json({success:true,data:save})
+    } catch (error) {
+        res.status(200).json({success:false,message:"internal server error"})
+        console.log(error);
+    }
+}
+
+module.exports = { getAllUser, adminLogin ,getUserById,addProduct}

@@ -1,4 +1,5 @@
 const mongoose=require('mongoose')
+const moment = require('moment-timezone');
 
 const productsSchema=new mongoose.Schema({
     shoe_name:{
@@ -32,10 +33,12 @@ const productsSchema=new mongoose.Schema({
         default:true
     },
     createdAt: {
-        type: String
+        type: String,
+        default:moment().tz("Asia/Kolkata").format()
     },
     updatedAt: {
-        type: String
+        type: String,
+        default:moment().tz("Asia/Kolkata").format()
     }
 })
 
