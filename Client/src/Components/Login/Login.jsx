@@ -3,36 +3,28 @@ import { useFormik } from "formik";
 import React, { memo, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
+import { loginSceama } from "../../schema";
 
 function Login() {
   const navigate = useNavigate()
-  const [datass, setDatass] = useState([])
-
-
   const initialValues = {
     email: "",
     password: ""
   }
 
-  useEffect(() => {
-    axios.get("https://shoes-ecommerce-9ems.onrender.com/users")
-      .then(responsive => setDatass(responsive.data))
-      .catch(err => toast.error(`error fetch found ${err.message}`))
-  }, [])
-
-  const { values, handleChange, handleSubmit, handleBlur } = useFormik({
+  const { values, handleChange, handleSubmit, handleBlur,errors,touched } = useFormik({
     initialValues,
+    validationSchema:loginSceama,
     onSubmit: (values) => {
-      const userDatas = datass.find(items => items.email === values.email && items.password === values.password)
-      if (userDatas != undefined&& userDatas.isActive===true && userDatas.isAdmin===true) {
-        localStorage.setItem("id", userDatas.id);
-        navigate("/admin")
-      }else if(userDatas != undefined&& userDatas.isActive===true){
-        localStorage.setItem("id", userDatas.id);
-        navigate("/")
-      }else{
-        toast.error("your entered details in correct")
-      }
+      axios.post("http://localhost:5000/api/users/login", values)
+        .then((res) => {
+          toast.success(res.data.message)
+          navigate("/")
+        })
+        .catch(err => {
+          const msg = err.response?.data?.message || err.message;
+          toast.error(`Error: ${msg}`);
+        })
     }
   })
 
@@ -55,6 +47,7 @@ function Login() {
               onBlur={handleBlur}
               onChange={handleChange}
             />
+            {errors.email && touched.email && (<p className="text-red-500">{errors.email}</p>)}
           </div>
 
           <div>
@@ -68,6 +61,7 @@ function Login() {
               onBlur={handleBlur}
               onChange={handleChange}
             />
+            {errors.password && touched.password && (<p className="text-red-500">{errors.password}</p>)}
           </div>
 
           <button className="w-full bg-lime-700 text-white py-2 rounded-lg hover:bg-lime-800 transition" type="submit">
@@ -76,11 +70,11 @@ function Login() {
         </form>
         <p className="text-center text-gray-600 mt-4">
           Don't have an account?{" "}
-        <Link to={"/register"}>
-          <span className="text-lime-700 hover:underline">
-          Register
-          </span>
-        </Link>
+          <Link to={"/register"}>
+            <span className="text-lime-700 hover:underline">
+              Register
+            </span>
+          </Link>
         </p>
       </div>
       <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />

@@ -24,6 +24,7 @@ function Register() {
       onSubmit: (values) => {
         axios.post("http://localhost:5000/api/users/register", values)
           .then(response => {
+            toast.success(response.message)
             navigate("/login")
           })
           .catch(err => {
