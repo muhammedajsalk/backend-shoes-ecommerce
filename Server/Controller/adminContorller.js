@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken')
 const { default: mongoose } = require("mongoose")
 const orderModel = require("../Models/ordersModel")
 require('dotenv').config()
-const multer=require('multer')
+const multer = require('multer')
 
 
 async function getAllUser(req, res) {
@@ -45,19 +45,19 @@ async function adminLogin(req, res) {
 async function getUserById(req, res) {
     try {
         const userId = req.params.id
-        const userData = await userModel.findById({ _id:userId })
+        const userData = await userModel.findById({ _id: userId })
         if (!userData) return res.status(400).json({ success: false, message: "the id is not user" })
         res.status(200).json({ success: true, data: userData })
     } catch (error) {
-       res.status(500).json({success:false,message:"internal server error"})
-       console.log(error)
+        res.status(500).json({ success: false, message: "internal server error" })
+        console.log(error)
     }
 }
 
-async function addProduct(req,res){
+async function addProduct(req, res) {
     try {
-        const {shoe_name,brand_name,type,description,amount,count,category}=req.body
-        const newProductData=new productModel({
+        const { shoe_name, brand_name, type, description, amount, count, category } = req.body
+        const newProductData = new productModel({
             shoe_name,
             brand_name,
             type,
@@ -65,24 +65,36 @@ async function addProduct(req,res){
             amount,
             count,
             category,
-            images:req.file?req.file.path:null
+            images: req.file ? req.file.path : null
         })
-        const save=await newProductData.save()
-        res.status(200).json({success:true,data:save})
+        const save = await newProductData.save()
+        res.status(200).json({ success: true, data: save })
     } catch (error) {
-        res.status(500).json({success:false,message:"internal server error"})
+        res.status(500).json({ success: false, message: "internal server error" })
         console.log(error);
     }
 }
 
-async function getAllProducts(req,res){
+async function getAllProducts(req, res) {
     try {
-        const product_data=await productModel.find()
-        res.status(200).json({success:true,data:product_data})
+        const product_data = await productModel.find()
+        res.status(200).json({ success: true, data: product_data })
     } catch (error) {
-        res.status(500).json({success:false,message:"internal server error"})
+        res.status(500).json({ success: false, message: "internal server error" })
         console.log(error);
     }
 }
 
-module.exports = { getAllUser, adminLogin ,getUserById,addProduct,getAllProducts}
+async function getProductsByCategory(req, res) {
+    try {
+        const category = req.params.category
+        const categoryDatas = await productModel.find({ category: category })
+        if (categoryDatas.length===0) return res.status(400).json({ success: false, message: "this category not in database" })
+        res.status(200).json({ success: true, data: categoryDatas })
+    } catch (error) {
+        res.status(500).json({ success: false, message: "internal server error" })
+        console.log(error);
+    }
+}
+
+module.exports = { getAllUser, adminLogin, getUserById, addProduct, getAllProducts ,getProductsByCategory}
