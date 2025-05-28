@@ -30,9 +30,9 @@ function AllProducts() {
 
     const navigate = useNavigate();
     useEffect(() => {
-        axios.get("https://shoes-ecommerce-9ems.onrender.com/shoes")
+        axios.get("http://localhost:5000/api/users/products")
             .then(response => {
-                const filtered = data ? response.data.filter(item => item.category === data) : response.data;
+                const filtered = data ? response.data.data.filter(item => item.category === data) : response.data.data;
                 setProducts(filtered);
                 setFilteredProducts(filtered);
             })
@@ -46,7 +46,6 @@ function AllProducts() {
         );
         setFilteredProducts(filtered);
     }, [search])
-
 
     return (
         <>
@@ -70,10 +69,10 @@ function AllProducts() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {currentPosts.map((product, index) => (
-                            <Link to={`/productDetails/${product.id}`} key={product.id}>
+                            <Link to={`/productDetails/${product._id}`} key={product._id}>
                                 <div className="border rounded-xl h-[450px]  shadow-lg p-4 bg-white text-center transition-transform transform hover:scale-105" onClick={() => navigate(`/productDetails/${product.id}`)}>
                                     <img
-                                        src={product.shoe_image}
+                                        src={product.images[0]}
                                         alt={product.shoe_name}
                                         className="w-full h-1/2 object-cover rounded-lg mb-4"
                                     />

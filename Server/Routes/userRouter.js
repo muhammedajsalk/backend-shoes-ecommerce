@@ -10,11 +10,11 @@ router.post("/login",userLogin)
 
 router.patch("/new-password",resetPassword)
 
-router.get("/products",jwtMiddleware,getAllProducts)
+router.get("/products",getAllProducts)
 
-router.get("/products/:id",jwtMiddleware,getProductsById)
+router.get("/products/:id",getProductsById)
 
-router.get("/products/category/:category_name",jwtMiddleware,getProductByCategory)
+router.get("/products/category/:category_name",getProductByCategory)
 
 router.post("/:id/cart",jwtMiddleware,addProductToCart)
 

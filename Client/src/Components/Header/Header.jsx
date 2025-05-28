@@ -4,15 +4,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import { CartDataTrasfer } from '../Router/Router';
+import Cookies from 'js-cookie';
 
 function Header(props) {
     const [menuOpen, setMenuOpen] = useState(false);
     const [Datas, setDatas] = useState();
 
 
+
     const navigate = useNavigate();
 
     const toggleMenu = () => setMenuOpen((prev) => !prev);
+
 
     useEffect(() => {
         axios.get("http://localhost:5000/api/users/toMe", { withCredentials: true })
@@ -27,9 +30,9 @@ function Header(props) {
             .catch(err => console.log("error Found", err));
     }, []);
 
-    console.log("userDatils"+ props.userDetails.name)
+    console.log("userDatils" + props.userDetails.name)
     const Logout = () => {
-        axios.post("http://localhost:5000/api/users/logOut",{}, { withCredentials: true })
+        axios.post("http://localhost:5000/api/users/logOut", {}, { withCredentials: true })
             .then(response => {
                 toast.success(`${response.data.message}`)
                 navigate("/login");
@@ -65,10 +68,10 @@ function Header(props) {
             </ul>
 
             <div className="flex items-center space-x-4">
-                {typeof Datas === "object"||props.userDetails.name ? (
+                {typeof Datas === "object" || props.userDetails.name ? (
                     <div className="flex items-center space-x-2 cursor-pointer">
                         <span className="text-gray-700"><i className="fa-solid fa-user"></i></span>
-                        <span className="text-gray-700 font-medium" onClick={() => navigate("/user_profile")}>{props.userDetails.name?props.userDetails.name:Datas.name}</span>
+                        <span className="text-gray-700 font-medium" onClick={() => navigate("/user_profile")}>{props.userDetails.name ? props.userDetails.name : Datas.name}</span>
                         <button className="bg-red-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded" onClick={Logout}>
                             Logout
                         </button>
@@ -83,7 +86,7 @@ function Header(props) {
                         </div>
                     </Link>
                 )}
-                {(Datas || props.userDetails?.name)&&(
+                {(Datas || props.userDetails?.name) && (
                     <Link to={"/cart"}>
                         <div className="flex items-center space-x-2 cursor-pointer">
                             <span className="text-gray-700 relative inline-block">
