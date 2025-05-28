@@ -13,8 +13,8 @@ function ProductDetails() {
     const [product, setProduct] = useState([])
 
     useEffect(() => {
-        axios.get(`https://shoes-ecommerce-9ems.onrender.com/shoes/${productId}`)
-            .then(responsive => setProduct(responsive.data))
+        axios.get(`http://localhost:5000/api/users/products/${productId}`)
+            .then(responsive => setProduct(responsive.data.data))
             .catch(err => toast.error(`erroor found:${err.message}`))
     }, [])
 
@@ -67,6 +67,8 @@ function ProductDetails() {
     }, [product, setpaymentTotal, setQuantities, navigate])
 
 
+    console.log(product)
+
 
     return (
         <>
@@ -75,7 +77,7 @@ function ProductDetails() {
 
                     <div className="flex justify-center">
                         <img
-                            src={product.shoe_image}
+                            src={product.images}
                             alt={product.shoe_name}
                             className="w-full max-w-sm object-cover rounded-lg shadow-md"
                         />
