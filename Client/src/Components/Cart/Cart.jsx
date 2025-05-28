@@ -6,85 +6,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import NotFound from '../not found/NotFound';
 
 function Cart() {
-    // const { paymentTotal, setpaymentTotal,quantities, setQuantities,setCartQuatities} = useContext(CartDataTrasfer)
-    // const [cart, setCart] = useState([]);
-    // const [cartProduct, setCartProduct] = useState([]);
-    // const navigate = useNavigate()
-    // const userId = localStorage.getItem("id");
-
-    // useEffect(() => {
-    //     axios.get(`https://shoes-ecommerce-9ems.onrender.com/users/${userId}`)
-    //         .then(response => {
-    //             setCart(response.data.cart)
-    //             setCartQuatities(response.data.cart.length)
-    //         })
-    //         .catch(err => err);
-    // }, [userId]);
-
-
-    // useEffect(() => {
-    //     if (cart.length > 0) {
-    //         const fetchProductDetails = async () => {
-    //             try {
-    //                 const productPromises = cart.map(itemId =>
-    //                     axios.get(`https://shoes-ecommerce-9ems.onrender.com/shoes/${itemId}`)
-    //                 );
-    //                 const productResponses = await Promise.all(productPromises);
-    //                 const products = productResponses.map(response => response.data);
-    //                 setCartProduct(products);
-
-    //                 const initialQuantities = {};
-    //                 products.forEach(product => {
-    //                     initialQuantities[product.id] = 1;
-    //                 });
-    //                 setQuantities(initialQuantities);
-    //             } catch (error) {
-    //                 toast.error("error in fetching", error);
-    //             }
-    //         };
-
-    //         fetchProductDetails();
-    //     }
-    // }, [cart]);
-
-
-    // useEffect(() => {
-    //     if (cartProduct.length > 0) {
-    //         const total = cartProduct.reduce((sum, product) => {
-    //             const quantity = quantities[product.id] || 1;
-    //             return sum + product.amount * quantity;
-    //         }, 0).toFixed(2);
-    //         if (paymentTotal !== total) {
-    //             setpaymentTotal(total);
-    //         }
-    //     }
-    // }, [cartProduct, quantities, setpaymentTotal]);
-
-
-
-
-
-    // const handlequantitychange=useCallback((id, calc)=>{
-    //     setQuantities(prev => ({
-    //         ...prev,
-    //         [id]: Math.max(1, (prev[id] || 1) + calc)
-    //     }));
-    // },[setQuantities])
-
-
-    // const handledelete=useCallback((id)=>{
-    //     const updatedCartProduct = cartProduct.filter((item) => item.id !== id);
-    //     setCartProduct(updatedCartProduct);
-    //     const updatedCart = cart.filter((itemId) => itemId !== id);
-    //     setCart(updatedCart);
-    //     setCartQuatities(cart.length-1)
-    //     axios.patch(`https://shoes-ecommerce-9ems.onrender.com/users/${userId}`, { cart: updatedCart })
-    //         .catch(err => toast.error("Error: updated cart", err));
-    // },[cart, userId])
 
     const [userData, setUserData] = useState("")
     const [cartData, setCartData] = useState([])
-    const [dumyQunatity, setDumyQunatity] = useState()
 
     useEffect(() => {
         axios.get("http://localhost:5000/api/users/toMe", { withCredentials: true })
