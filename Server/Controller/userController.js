@@ -208,7 +208,7 @@ async function addProductToCart(req, res) {
 async function getAllCartProducts(req, res) {
     try {
         const paramsUserId = req.params.id
-        const tokenUserId = req.user
+        const tokenUserId = req.user.id
         if (paramsUserId !== tokenUserId) return res.status(400).json({ success: false, message: "user is not authorized" })
         const userCartData = await cartModel.findOne({ cartBy: paramsUserId }).populate('items.productId')
         if (userCartData == null || userCartData.items.length === 0) return res.status(200).json({ success: true, data: "no product in cart" })
@@ -225,6 +225,40 @@ async function getAllCartProducts(req, res) {
 
 }
 
+async function updateTheQunatity(req,res){
+    try {
+        const userId=req.user.id
+        const {productId,quantity}=req.body
+        const cartData=await cartModel.findOne({cartBy:userId})
+        if(!cartData) return res.status(400).json({ success: false, message: "cart is not in database" })
+        if(quantity<1) return res.status(400).json({ success: false, message: "the quantity must be 1" })
+        const items=cartData.items.find(item=>item.productId===productId)
+        if(!items) return res.status(400).json({ success: false, message: "this item not in cart" })
+        items.quantity=quantity
+        await cartData.save()
+        res.status(200).json({ success: false, message: "quantity updated succefully" })
+    } catch (error) {
+        res.status(500).json({ success: false, message: "interanal server error" })
+        console.log(error)
+    }
+}
+
+async function deleteTheCartItem(req,res){
+    try {
+        const userId=req.user.id
+        const productId=req.params.id
+        const cartData=await cartModel.findOne({cartBy:userId})
+        if(!cartData) return res.status(400).json({ success: false, message: "cart is not in database" })
+        const initialLength=cartData.items.length
+        cartData.items=cartData.items.filter(item=>item.productId!==productId)
+        if(cartData.items.length===initialLength) return res.status(400).json({ success: false, message: "the product is not found" })
+        await cartData.save()
+        res.status(200).json({ success: false, message: "product deleted succefully" })
+    } catch (error) {
+        res.status(500).json({ success: false, message: "interanal server error" })
+        console.log(error)
+    }
+}
 
 
 
@@ -388,4 +422,4 @@ async function buyNow(req, res) {
     }
 }
 
-module.exports = { userRegister, userLogin, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders, getOrders, userWhislistPost, getWhishList, toMe, logOut ,buyNow}
+module.exports = { userRegister, userLogin, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders, getOrders, userWhislistPost, getWhishList, toMe, logOut ,buyNow,updateTheQunatity,deleteTheCartItem}

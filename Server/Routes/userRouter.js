@@ -1,7 +1,7 @@
 const express=require('express')
 const router=express.Router()
 const jwtMiddleware=require("../middlewares/jwtMiddleware")
-const {userRegister,userLogin,resetPassword,getAllProducts,getProductsById,getProductByCategory,addProductToCart,getAllCartProducts,postOrders,getOrders,userWhislistPost,getWhishList,toMe,logOut,buyNow}=require("../Controller/userController")
+const {userRegister,userLogin,resetPassword,getAllProducts,getProductsById,getProductByCategory,addProductToCart,getAllCartProducts,postOrders,getOrders,userWhislistPost,getWhishList,toMe,logOut,buyNow,updateTheQunatity,deleteTheCartItem}=require("../Controller/userController")
 
 
 router.post('/register',userRegister)
@@ -33,5 +33,9 @@ router.get("/toMe",jwtMiddleware,toMe)
 router.post("/logOut",logOut)
 
 router.get("/:id/buyNow",jwtMiddleware,buyNow)
+
+router.patch("/quantityUpdate",jwtMiddleware,updateTheQunatity)
+
+router.delete("/:id/delete",jwtMiddleware,deleteTheCartItem)
 
 module.exports=router
