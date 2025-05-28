@@ -1,25 +1,32 @@
 import axios from "axios";
 import { useFormik } from "formik";
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import { loginSceama } from "../../schema";
+import { CartDataTrasfer } from "../Router/Router";
+
+
 
 function Login() {
   const navigate = useNavigate()
+  const { userDetails, setUserDetails } = useContext(CartDataTrasfer)
   const initialValues = {
     email: "",
     password: ""
   }
 
-  const { values, handleChange, handleSubmit, handleBlur,errors,touched } = useFormik({
+  const { values, handleChange, handleSubmit, handleBlur, errors, touched } = useFormik({
     initialValues,
-    validationSchema:loginSceama,
+    validationSchema: loginSceama,
     onSubmit: (values) => {
-      axios.post("http://localhost:5000/api/users/login", values)
+      axios.post("http://localhost:5000/api/users/login", values, { withCredentials: true })
         .then((res) => {
           toast.success(res.data.message)
-          navigate("/")
+          setUserDetails(res.data.data)
+          setTimeout(() => {
+            navigate("/");
+          }, 4000);
         })
         .catch(err => {
           const msg = err.response?.data?.message || err.message;
@@ -27,7 +34,6 @@ function Login() {
         })
     }
   })
-
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">

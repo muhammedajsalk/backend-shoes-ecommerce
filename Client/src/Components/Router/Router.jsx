@@ -51,17 +51,21 @@ function Routerss() {
   const [quantities, setQuantities] = useState({});
   const [cartQuatities,setCartQuatities]=useState(0)
   const [buyingarea,setBuyingArea]=useState([])
+  const [userDetails,setUserDetails]=useState("")
   
 
   const location=useLocation()
   const isAdminRoute =location.pathname.startsWith("/admin")
+  const isLoginRoute=location.pathname.startsWith("/login")
+  const isRegister=location.pathname.startsWith("/register")
 
 
-  const providerValue = useMemo(() => ({ cartid, setCartId, paymentTotal, setpaymentTotal,quantities, setQuantities,buyingarea,setBuyingArea,setCartQuatities}))
+
+  const providerValue = useMemo(() => ({ cartid, setCartId, paymentTotal, setpaymentTotal,quantities, setQuantities,buyingarea,setBuyingArea,setCartQuatities,setUserDetails}))
 
   return (
     <>
-      {!isAdminRoute&&<Header quantities={cartQuatities} setQuantities={setCartQuatities}/>}
+      {(!isAdminRoute && !isLoginRoute &&!isRegister)&&<Header quantities={cartQuatities} setQuantities={setCartQuatities} userDetails={userDetails}/>}
       <CartDataTrasfer.Provider value={providerValue}>
         <Suspense fallback={<LoadingScreen />}>
           <Routes>

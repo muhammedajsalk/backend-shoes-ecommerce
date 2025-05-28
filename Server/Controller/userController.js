@@ -349,4 +349,30 @@ async function getWhishList(req, res) {
     }
 }
 
-module.exports = { userRegister, userLogin, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders, getOrders, userWhislistPost, getWhishList }
+async function toMe(req, res) {
+    try {
+        const userId = req.user.id
+        const userData = await userModel.findOne({ _id: userId })
+        if (!userData) return res.status(400).json({ success: false, message: "the user is not database" })
+        return res.status(200).json({ success: true, data: userData })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ success: false, message: "internal server error" })
+    }
+}
+
+async function logOut(req, res) {
+    try {
+        res.clearCookie('accesTokken', {
+            httpOnly: true,
+            secure: false,
+            sameSite: 'Strict',
+        });
+        res.status(200).json({ message: 'Logged out successfully' });
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ success: false, message: "internal server error" })
+    }
+}
+
+module.exports = { userRegister, userLogin, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders, getOrders, userWhislistPost, getWhishList, toMe ,logOut}

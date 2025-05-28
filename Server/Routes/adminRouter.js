@@ -24,7 +24,7 @@ router.patch("/products/:id",jwtAdminMiddleware,editProducts)
 
 router.patch("/users/:id",jwtAdminMiddleware,blockAndUnBlock)
 
-router.get("/orders",getAllOrders)
+router.get("/orders",jwtAdminMiddleware,getAllOrders)
 
 
 module.exports=router
