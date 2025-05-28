@@ -34,7 +34,7 @@ function Payment() {
     };
 
 
-    const { paymentTotal, quantities, setpaymentTotal,buyingarea,setCartQuatities} = useContext(CartDataTrasfer)
+    const { paymentTotal, quantities, setpaymentTotal,buyingarea,setCartQuatities,orderProduct,setOrderProduct} = useContext(CartDataTrasfer)
     const [state, setState] = useState([])
     const [formerOrder, setFormerOrder] = useState({})
     const [formercartitems,setformarcartitems]=useState([])
@@ -61,6 +61,9 @@ function Payment() {
             })
             .catch(err => toast.error(`error found:${err}`))
     }, [])
+
+
+    console.log(orderProduct)
 
 
     

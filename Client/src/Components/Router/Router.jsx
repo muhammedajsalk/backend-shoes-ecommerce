@@ -52,6 +52,7 @@ function Routerss() {
   const [cartQuatities,setCartQuatities]=useState(0)
   const [buyingarea,setBuyingArea]=useState([])
   const [userDetails,setUserDetails]=useState("")
+  const [orderProduct,setOrderProduct]=useState("")
   
 
   const location=useLocation()
@@ -61,7 +62,7 @@ function Routerss() {
 
 
 
-  const providerValue = useMemo(() => ({ cartid, setCartId, paymentTotal, setpaymentTotal,quantities, setQuantities,buyingarea,setBuyingArea,setCartQuatities,setUserDetails}))
+  const providerValue = useMemo(() => ({ cartid, setCartId, paymentTotal, setpaymentTotal,quantities, setQuantities,buyingarea,setBuyingArea,setCartQuatities,setUserDetails,orderProduct,setOrderProduct}))
 
   return (
     <>

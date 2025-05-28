@@ -1,7 +1,7 @@
 const express=require('express')
 const router=express.Router()
 const jwtMiddleware=require("../middlewares/jwtMiddleware")
-const {userRegister,userLogin,resetPassword,getAllProducts,getProductsById,getProductByCategory,addProductToCart,getAllCartProducts,postOrders,getOrders,userWhislistPost,getWhishList,toMe,logOut}=require("../Controller/userController")
+const {userRegister,userLogin,resetPassword,getAllProducts,getProductsById,getProductByCategory,addProductToCart,getAllCartProducts,postOrders,getOrders,userWhislistPost,getWhishList,toMe,logOut,buyNow}=require("../Controller/userController")
 
 
 router.post('/register',userRegister)
@@ -31,5 +31,7 @@ router.get('/:id/wishlists',jwtMiddleware,getWhishList)
 router.get("/toMe",jwtMiddleware,toMe)
 
 router.post("/logOut",logOut)
+
+router.get("/:id/buyNow",jwtMiddleware,buyNow)
 
 module.exports=router

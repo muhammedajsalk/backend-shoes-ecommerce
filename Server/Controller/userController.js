@@ -165,7 +165,7 @@ async function addProductToCart(req, res) {
                 updatedAt: moment().tz("Asia/Kolkata").format()
             })
             const saved = await newData.save()
-            return res.status(201).json({ success: true, data: saved ,message:"succefully added product to cart"})
+            return res.status(201).json({ success: true, data: saved, message: "succefully added product to cart" })
         }
 
         const existingItem = await cartModel.findOne({
@@ -184,7 +184,7 @@ async function addProductToCart(req, res) {
                 },
                 { new: true }
             );
-            return res.status(200).json({ success: true, data: updatedCart ,message:"succefully added product to cart"});
+            return res.status(200).json({ success: true, data: updatedCart, message: "succefully added product to cart" });
         } else {
             const addedCart = await cartModel.updateOne(
                 { cartBy: userId },
@@ -194,7 +194,7 @@ async function addProductToCart(req, res) {
                 },
 
             )
-            return res.status(200).json({ success: true, data: addedCart ,message:"succefully added product to cart"})
+            return res.status(200).json({ success: true, data: addedCart, message: "succefully added product to cart" })
         }
     } catch (err) {
         console.error(err);
@@ -375,4 +375,17 @@ async function logOut(req, res) {
     }
 }
 
-module.exports = { userRegister, userLogin, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders, getOrders, userWhislistPost, getWhishList, toMe ,logOut}
+async function buyNow(req, res) {
+    try {
+        const userId = req.user.id
+        if (!userId) return res.status(400).json({ success: false, message: "please login and buy now" })
+        const productId = req.params.id
+        const productData = await productModel.findById(productId)
+        return res.status(200).json({ success: true, data: productData })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ success: false, message: "internal server error" })
+    }
+}
+
+module.exports = { userRegister, userLogin, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders, getOrders, userWhislistPost, getWhishList, toMe, logOut ,buyNow}
