@@ -222,7 +222,7 @@ async function getAllCartProducts(req, res) {
             const itemTotal=item.productId.amount*item.quantity
             return acc+=itemTotal
         },0)
-        res.status(200).json({ success: true, data: cartproductdetails,totalAmount:totalAmount})
+        res.status(200).json({ success: true, data: cartproductdetails,totalAmount:totalAmount,user:tokenUserId})
     } catch (error) {
         res.status(500).json({ success: false, message: "interanal server error" })
         console.log(error)

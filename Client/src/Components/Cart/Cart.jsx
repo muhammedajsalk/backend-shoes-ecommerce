@@ -11,6 +11,7 @@ function Cart() {
     const [cartData, setCartData] = useState([])
      const {setCartQuatities} = useContext(CartDataTrasfer)
      const [totalAmount,setTotalAmount]=useState("")
+     const [user,setUser]=useState(null)
 
     useEffect(() => {
         axios.get("http://localhost:5000/api/users/toMe", { withCredentials: true })
@@ -26,6 +27,8 @@ function Cart() {
                 .then(res => {
                     setCartData(res.data.data)
                     setTotalAmount(res.data.totalAmount)
+                    const userAvailable=res.data.user
+                    setUser(userAvailable)
                 })
                 .catch(err => {
                     const msg = err.response?.data?.message || err.message;
@@ -74,7 +77,11 @@ function Cart() {
             })
     }
 
-    console.log(cartData)
+    if(!user){
+        return(
+            <NotFound/>
+        )
+    }
 
     return (
         <div className="max-w-[1000px] mx-auto p-6 bg-white border border-1 mt-20 mb-20 rounded-lg">
@@ -100,7 +107,7 @@ function Cart() {
             <div className="mt-6 p-4 border rounded-lg">
                 <h3 className="text-lg font-semibold">order summary</h3>
                 <p className="text-lg font-bold text-lime-700">
-                    Subtotal: ₹{totalAmount}
+                    Subtotal: ₹{totalAmount?totalAmount:0}
                 </p>
                 <button className="w-full mt-4 px-4 py-2 bg-lime-700 text-white rounded hover:bg-lime-800" onClick={() => {
                     if (cartData.length > 0) {
