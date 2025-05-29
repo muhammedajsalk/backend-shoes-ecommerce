@@ -10,6 +10,7 @@ function Cart() {
     const [userData, setUserData] = useState("")
     const [cartData, setCartData] = useState([])
      const {setCartQuatities} = useContext(CartDataTrasfer)
+     const [totalAmount,setTotalAmount]=useState("")
 
     useEffect(() => {
         axios.get("http://localhost:5000/api/users/toMe", { withCredentials: true })
@@ -22,7 +23,10 @@ function Cart() {
     useEffect(() => {
         if (userData && userData._id) {
             axios.get(`http://localhost:5000/api/users/${userData._id}/cart`, { withCredentials: true })
-                .then(res => setCartData(res.data.data))
+                .then(res => {
+                    setCartData(res.data.data)
+                    setTotalAmount(res.data.totalAmount)
+                })
                 .catch(err => {
                     const msg = err.response?.data?.message || err.message;
                     console.log(msg)
@@ -35,7 +39,10 @@ function Cart() {
             .then(res => {
                 toast.success(res.data.message)
                 axios.get(`http://localhost:5000/api/users/${userData._id}/cart`, { withCredentials: true })
-                    .then(res => setCartData(res.data.data))
+                    .then(res => {
+                        setCartData(res.data.data)
+                        setTotalAmount(res.data.totalAmount)
+                    })
                     .catch(err => toast.error("Failed to refresh cart data"));
             })
             .catch(err => {
@@ -93,7 +100,7 @@ function Cart() {
             <div className="mt-6 p-4 border rounded-lg">
                 <h3 className="text-lg font-semibold">order summary</h3>
                 <p className="text-lg font-bold text-lime-700">
-                    {/* Subtotal: ₹{paymentTotal} */}
+                    Subtotal: ₹{totalAmount}
                 </p>
                 <button className="w-full mt-4 px-4 py-2 bg-lime-700 text-white rounded hover:bg-lime-800" onClick={() => {
                     if (cartData.length > 0) {

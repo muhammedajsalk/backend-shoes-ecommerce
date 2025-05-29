@@ -165,7 +165,7 @@ async function addProductToCart(req, res) {
                 updatedAt: moment().tz("Asia/Kolkata").format()
             })
             const saved = await newData.save()
-            return res.status(201).json({ success: true, data: saved, message: "succefully added product to cart" ,user:userId})
+            return res.status(201).json({ success: true, data: saved, message: "succefully added product to cart", user: userId })
         }
 
         const existingItem = await cartModel.findOne({
@@ -184,7 +184,7 @@ async function addProductToCart(req, res) {
                 },
                 { new: true }
             );
-            return res.status(200).json({ success: true, data: updatedCart, message: "succefully added product to cart" ,user:userId});
+            return res.status(200).json({ success: true, data: updatedCart, message: "succefully added product to cart", user: userId });
         } else {
             const addedCart = await cartModel.updateOne(
                 { cartBy: userId },
@@ -194,7 +194,7 @@ async function addProductToCart(req, res) {
                 },
 
             )
-            return res.status(200).json({ success: true, data: addedCart, message: "succefully added product to cart" ,user:userId})
+            return res.status(200).json({ success: true, data: addedCart, message: "succefully added product to cart", user: userId })
         }
     } catch (err) {
         console.error(err);
@@ -218,23 +218,28 @@ async function getAllCartProducts(req, res) {
                 productId: item.productId
             }
         ))
-        res.status(200).json({ success: true, data: cartproductdetails })
+        const totalAmount=cartproductdetails.reduce((acc,item)=>{
+            const itemTotal=item.productId.amount*item.quantity
+            return acc+=itemTotal
+        },0)
+        res.status(200).json({ success: true, data: cartproductdetails,totalAmount:totalAmount})
     } catch (error) {
         res.status(500).json({ success: false, message: "interanal server error" })
+        console.log(error)
     }
 
 }
 
-async function updateTheQunatity(req,res){
+async function updateTheQunatity(req, res) {
     try {
-        const userId=req.user.id
-        const {productId,quantity}=req.body
-        const cartData=await cartModel.findOne({cartBy:userId})
-        if(!cartData) return res.status(400).json({ success: false, message: "cart is not in database" })
-        if(quantity<1) return res.status(400).json({ success: false, message: "the quantity must be 1" })
-        const items=cartData.items.find(item=>item.productId===productId)
-        if(!items) return res.status(400).json({ success: false, message: "this item not in cart" })
-        items.quantity=quantity
+        const userId = req.user.id
+        const { productId, quantity } = req.body
+        const cartData = await cartModel.findOne({ cartBy: userId })
+        if (!cartData) return res.status(400).json({ success: false, message: "cart is not in database" })
+        if (quantity < 1) return res.status(400).json({ success: false, message: "the quantity must be 1" })
+        const items = cartData.items.find(item => item.productId === productId)
+        if (!items) return res.status(400).json({ success: false, message: "this item not in cart" })
+        items.quantity = quantity
         await cartData.save()
         res.status(200).json({ success: false, message: "quantity updated succefully" })
     } catch (error) {
@@ -243,15 +248,15 @@ async function updateTheQunatity(req,res){
     }
 }
 
-async function deleteTheCartItem(req,res){
+async function deleteTheCartItem(req, res) {
     try {
-        const userId=req.user.id
-        const productId=req.params.id
-        const cartData=await cartModel.findOne({cartBy:userId})
-        if(!cartData) return res.status(400).json({ success: false, message: "cart is not in database" })
-        const initialLength=cartData.items.length
-        cartData.items=cartData.items.filter(item=>item.productId!==productId)
-        if(cartData.items.length===initialLength) return res.status(400).json({ success: false, message: "the product is not found" })
+        const userId = req.user.id
+        const productId = req.params.id
+        const cartData = await cartModel.findOne({ cartBy: userId })
+        if (!cartData) return res.status(400).json({ success: false, message: "cart is not in database" })
+        const initialLength = cartData.items.length
+        cartData.items = cartData.items.filter(item => item.productId !== productId)
+        if (cartData.items.length === initialLength) return res.status(400).json({ success: false, message: "the product is not found" })
         await cartData.save()
         res.status(200).json({ success: false, message: "product deleted succefully" })
     } catch (error) {
@@ -422,4 +427,4 @@ async function buyNow(req, res) {
     }
 }
 
-module.exports = { userRegister, userLogin, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders, getOrders, userWhislistPost, getWhishList, toMe, logOut ,buyNow,updateTheQunatity,deleteTheCartItem}
+module.exports = { userRegister, userLogin, resetPassword, getAllProducts, getProductsById, getProductByCategory, addProductToCart, getAllCartProducts, postOrders, getOrders, userWhislistPost, getWhishList, toMe, logOut, buyNow, updateTheQunatity, deleteTheCartItem }
