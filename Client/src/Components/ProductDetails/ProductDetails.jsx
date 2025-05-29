@@ -21,7 +21,20 @@ function ProductDetails() {
 
     function AddCart(id) {
         axios.post(`http://localhost:5000/api/users/${id}/cart`, {}, { withCredentials: true })
-            .then(res => toast.success(res.data.message))
+            .then(res => {
+                const userId=res.data.user
+                axios.get(`http://localhost:5000/api/users/${userId}/cart`, { withCredentials: true })
+                .then(res =>{
+                    const cartLength=res.data.data.length
+                     console.log("res.data.data.length"+res.data.data.length,"res.data.data"+res.data.data)
+                   setCartQuatities(cartLength)
+                })
+                .catch(err => {
+                    const msg = err.response?.data?.message || err.message;
+                    console.log(msg)
+                });
+                toast.success(res.data.message)
+            })
             .catch(err => {
                 const msg = err.response?.data?.message || err.message;
                 toast.error(`Error: ${msg}`);

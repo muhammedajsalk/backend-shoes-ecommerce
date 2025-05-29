@@ -165,7 +165,7 @@ async function addProductToCart(req, res) {
                 updatedAt: moment().tz("Asia/Kolkata").format()
             })
             const saved = await newData.save()
-            return res.status(201).json({ success: true, data: saved, message: "succefully added product to cart" })
+            return res.status(201).json({ success: true, data: saved, message: "succefully added product to cart" ,user:userId})
         }
 
         const existingItem = await cartModel.findOne({
@@ -184,7 +184,7 @@ async function addProductToCart(req, res) {
                 },
                 { new: true }
             );
-            return res.status(200).json({ success: true, data: updatedCart, message: "succefully added product to cart" });
+            return res.status(200).json({ success: true, data: updatedCart, message: "succefully added product to cart" ,user:userId});
         } else {
             const addedCart = await cartModel.updateOne(
                 { cartBy: userId },
@@ -194,7 +194,7 @@ async function addProductToCart(req, res) {
                 },
 
             )
-            return res.status(200).json({ success: true, data: addedCart, message: "succefully added product to cart" })
+            return res.status(200).json({ success: true, data: addedCart, message: "succefully added product to cart" ,user:userId})
         }
     } catch (err) {
         console.error(err);

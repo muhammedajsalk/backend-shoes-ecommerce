@@ -9,6 +9,7 @@ function Cart() {
 
     const [userData, setUserData] = useState("")
     const [cartData, setCartData] = useState([])
+     const {setCartQuatities} = useContext(CartDataTrasfer)
 
     useEffect(() => {
         axios.get("http://localhost:5000/api/users/toMe", { withCredentials: true })
@@ -49,7 +50,14 @@ function Cart() {
             .then(res => {
                 toast.success(res.data.message)
                 axios.get(`http://localhost:5000/api/users/${userData._id}/cart`, { withCredentials: true })
-                    .then(res => setCartData(res.data.data))
+                    .then(res => {
+                        console.log("res.data.data.length"+res.data.data.length,"res.data.data"+res.data.data)
+                        const cartLength=res.data.data.length
+                        const cartMatch=res.data.data
+                        setCartQuatities(Array.isArray(cartMatch)?cartLength:0)
+                        setCartData(res.data.data)
+                    }
+                    )
                     .catch(err => toast.error("Failed to refresh cart data"));
             })
             .catch(err=>{

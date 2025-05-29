@@ -20,12 +20,19 @@ function Header(props) {
     useEffect(() => {
         axios.get("http://localhost:5000/api/users/toMe", { withCredentials: true })
             .then(response => {
-                setDatas(response.data.data)
-                // props.setQuantities(response.data.cart.length)
-                // if(response.data.isActive===false){
-                //     localStorage.removeItem("id")
-                //     window.location.reload();   
-                // }
+                const userData=response.data.data
+                setDatas(userData)
+                axios.get(`http://localhost:5000/api/users/${userData._id}/cart`, { withCredentials: true })
+                    .then(res => {
+                        const cartLength=res.data.data.length
+                        const cartMatch=res.data.data
+                         console.log("res.data.data.length"+res.data.data.length,"res.data.data"+res.data.data)
+                        props.setQuantities(Array.isArray(cartMatch)?cartLength:0)
+                    })
+                    .catch(err => {
+                        const msg = err.response?.data?.message || err.message;
+                        console.log(msg)
+                    });
             })
             .catch(err => console.log("error Found", err));
     }, []);
