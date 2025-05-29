@@ -10,8 +10,8 @@ const UsersChart = () => {
 
   useEffect(() => {
     axios
-      .get("https://shoes-ecommerce-9ems.onrender.com/users")
-      .then((response) => setFetchData(response.data))
+      .get("http://localhost:5000/api/admin/users",{withCredentials:true})
+      .then((response) => setFetchData(response.data.data))
       .catch((err) => toast.error("fetching users error found",err));
   }, []);
 
