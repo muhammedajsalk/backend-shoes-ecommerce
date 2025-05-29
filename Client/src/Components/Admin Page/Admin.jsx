@@ -8,14 +8,6 @@ import { useNavigate } from 'react-router-dom'
 
 
 function Admin() {
- const UserId= localStorage.getItem("id")
-const navigate= useNavigate()
-
-useEffect(() => {
-  if (UserId !== "ab01") {
-    navigate("*");
-  }
-}, [UserId]);
 
   return (
     <div className='flex'>

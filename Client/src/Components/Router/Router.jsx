@@ -12,6 +12,7 @@ import ProductAdminEdit from '../Admin Page/productPage/ProductAdminEdit';
 import AddProduct from '../Admin Page/productPage/AddProduct';
 import UserPage from '../Admin Page/UserPage/UserPage';                                                                           
 import UserOrders from '../Admin Page/UserPage/UserOrders';
+import AdminLogin from '../Admin Page/adminLogin';
 
 
 const Cart = lazy(() => import('../Cart/Cart'))
@@ -82,6 +83,7 @@ function Routerss() {
             <Route path='/productDetails/:productId' element={<ProductDetails/>}></Route>
             <Route path='/user_profile' element={<UserProfile />}></Route>
             <Route path='/Admin' element={<Admin />}></Route>
+            <Route path='/AdminLogin' element={<AdminLogin />}></Route>
             <Route path='/admin/product_admin' element={<ProductAdmin />}></Route>
             <Route path='/admin/productadminview/:shoesId' element={<ProductAdminView />}></Route>
             <Route path='/admin/productAdminEdit/:shoesId' element={<ProductAdminEdit />}></Route>
