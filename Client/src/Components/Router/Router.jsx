@@ -85,8 +85,8 @@ function Routerss() {
             <Route path='/Admin' element={<Admin />}></Route>
             <Route path='/AdminLogin' element={<AdminLogin />}></Route>
             <Route path='/admin/product_admin' element={<ProductAdmin />}></Route>
-            <Route path='/admin/productadminview/:shoesId' element={<ProductAdminView />}></Route>
-            <Route path='/admin/productAdminEdit/:shoesId' element={<ProductAdminEdit />}></Route>
+            <Route path='/admin/productadminview/:id' element={<ProductAdminView />}></Route>
+            <Route path='/admin/productAdminEdit/:id' element={<ProductAdminEdit />}></Route>
             <Route path='/admin/addproduct' element={<AddProduct />}></Route>
             <Route path='/admin/users_admin' element={<UserPage/>}></Route>
             <Route path='/admin/users_admin/users_orders/:usersParId' element={<UserOrders/>}></Route>

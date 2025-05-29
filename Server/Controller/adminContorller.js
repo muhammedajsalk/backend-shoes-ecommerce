@@ -4,6 +4,7 @@ const cartModel = require("../Models/CartModel")
 const wishlistModel = require('../Models/whishListModel')
 const bycrypt = require('bcryptjs')
 const moment = require('moment-timezone');
+const cloudinary = require('../config/cloudinary');
 const jwt = require('jsonwebtoken')
 const { default: mongoose } = require("mongoose")
 const orderModel = require("../Models/ordersModel")
@@ -109,17 +110,53 @@ async function getProductById(req, res) {
     }
 }
 
-async function editProducts(req, res) {
+async function deleteProductById(req, res) {
     try {
-        const editedDetails = req.body
         const productId = req.params.id
-        const newData = await productModel.updateOne({ _id: productId }, { $set: editedDetails })
-        if (newData.matchedCount === 0) return res.status(400).json({ success: false, message: "the product is not in database" })
-        res.status(200).json({ success: true, data: newData, message: "the product is edited succefully" })
-    } catch (error) {
+        const productData = await productModel.deleteOne({ _id: productId })
+        if (!productData) return res.status(400).json({ success: false, message: "the product in not in database" })
+        res.status(200).json({ success: true, message: "product is succefully deleted" })
+    } catch {
         res.status(500).json({ success: false, message: "internal server error" })
-        console.log(error)
+        console.log(error);
     }
+}
+
+async function editProducts(req, res) {
+  try {
+    const productId = req.params.id;
+    const updatedFields = { ...req.body };
+    if (updatedFields.amount) updatedFields.amount = parseFloat(updatedFields.amount);
+    if (updatedFields.count) updatedFields.count = parseInt(updatedFields.count);
+    if (req.file) {
+      const uploadResult = await new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+          { folder: 'uploads' },
+          (err, result) => {
+            if (err) reject(err);
+            else resolve(result);
+          }
+        );
+        stream.end(req.file.buffer);
+      });
+
+      updatedFields.images = uploadResult.secure_url;
+    }
+    if (Object.keys(updatedFields).length === 0) {
+      return res.status(400).json({ success: false, message: 'No update fields provided' });
+    }
+    const updated = await productModel.updateOne(
+      { _id: productId },
+      { $set: updatedFields }
+    );
+    if (updated.matchedCount === 0) {
+      return res.status(404).json({ success: false, message: 'Product not found' });
+    }
+    res.status(200).json({ success: true, message: 'Product updated successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
 }
 
 
@@ -147,4 +184,4 @@ async function getAllOrders(req, res) {
     }
 }
 
-module.exports = { getAllUser, adminLogin, getUserById, addProduct, getAllProducts, getProductsByCategory, getProductById, editProducts, blockAndUnBlock, getAllOrders }
+module.exports = { getAllUser, adminLogin, getUserById, addProduct, getAllProducts, getProductsByCategory, getProductById, editProducts, blockAndUnBlock, getAllOrders ,deleteProductById}

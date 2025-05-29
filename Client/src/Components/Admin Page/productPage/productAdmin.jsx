@@ -6,16 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 function ProductAdmin() {
-
-    const UserId = localStorage.getItem("id")
     const navigate = useNavigate()
-
-    useEffect(() => {
-        if (UserId !== "ab01") {
-            navigate("*");
-        }
-    }, [UserId]);
-
 
     const [datas, setDatas] = useState([])
     const [search, setSearch] = useState("")
@@ -30,9 +21,12 @@ function ProductAdmin() {
 
 
     useEffect(() => {
-        axios.get("https://shoes-ecommerce-9ems.onrender.com/shoes")
-            .then(responsive => setDatas(responsive.data))
-            .catch(err => toast.error("fetching data found error", err))
+        axios.get("http://localhost:5000/api/admin/products", { withCredentials: true })
+            .then(responsive => setDatas(responsive.data.data))
+            .catch(err => {
+                const msg = err.response?.data?.message || err.message;
+                toast.error(msg)
+            })
     }, [FilterData])
 
     let pages = []
@@ -47,9 +41,12 @@ function ProductAdmin() {
     }
 
     const DeleteProduct = useCallback((id) => {
-        axios.delete(`https://shoes-ecommerce-9ems.onrender.com/shoes/${id}`)
-            .then(responsive => toast.success("succefully deleted"))
-            .catch(err => toast.error("delete not working".err))
+        axios.delete(`http://localhost:5000/api/admin/${id}/product`, { withCredentials: true })
+            .then(responsive => toast.success(responsive.data.message))
+            .catch(err => {
+                const msg = err.response?.data?.message || err.message;
+                toast.error(msg)
+            })
     }, [FilterData])
     return (
 
@@ -80,20 +77,20 @@ function ProductAdmin() {
                             <li className="py-2">Delete</li>
                         </ul>
                         {currenetPosts.map((items) => (
-                            <div className="flex flex-col sm:grid sm:grid-cols-5 text-center gap-4 p-2 items-center border-b py-2" key={items.id}>
+                            <div className="flex flex-col sm:grid sm:grid-cols-5 text-center gap-4 p-2 items-center border-b py-2" key={items._id}>
                                 <span>{items.shoe_name}</span>
                                 <span>{items.category}</span>
-                                <Link to={`/admin/productadminview/${items.id}`}>
+                                <Link to={`/admin/productadminview/${items._id}`}>
                                     <button className="bg-green-500 hover:bg-green-600 text-white py-1 px-3 rounded-md shadow-sm">
                                         View
                                     </button>
                                 </Link>
-                                <Link to={`/admin/productAdminEdit/${items.id}`}>
+                                <Link to={`/admin/productAdminEdit/${items._id}`}>
                                     <button className="bg-yellow-500 hover:bg-yellow-600 text-white py-1 px-3 rounded-md shadow-sm">
                                         Edit
                                     </button>
                                 </Link>
-                                <button className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-md shadow-sm" onClick={() => DeleteProduct(items.id)}>
+                                <button className="bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded-md shadow-sm" onClick={() => DeleteProduct(items._id)}>
                                     Delete
                                 </button>
                             </div>
@@ -103,7 +100,7 @@ function ProductAdmin() {
                                 <button
                                     key={id}
                                     onClick={() => setCurrentPage(item)}
-                                    className={`px-4 py-2 rounded-lg shadow-md font-medium ${currentPage === item ? 'bg-blue-500 text-white' :'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}>{item}</button>
+                                    className={`px-4 py-2 rounded-lg shadow-md font-medium ${currentPage === item ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}>{item}</button>
                             ))}
                         </div>
                     </div>

@@ -8,7 +8,7 @@ function AdminNav() {
       </span>
       <span className='flex items-center space-x-2 text-white'>
         <i className="fa-solid fa-user text-2xl hover:text-blue-500 transition-all duration-200"></i>
-        <h2 className='text-lg'>Muhammed Ajsal</h2>
+        <h2 className='text-lg'>Muhammed Ajzal</h2>
       </span>
     </div>
   )
